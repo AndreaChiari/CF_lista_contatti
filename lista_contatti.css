@@ -1,0 +1,73 @@
+
+/*css reset*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*generals*/
+a{
+  display: block;
+}
+.w220{
+  width: 220px;
+}
+.fa-trash{
+  font-size: 20px;
+  color: rgb(240, 6, 6) !important;
+}
+.fa-pen-to-square{
+  color: green !important;
+  font-size: 20px;
+
+}
+.fa-user-plus{
+    font-size: 30px;
+    text-align: right;
+}
+
+
+.title-row{
+  background-color: rgb(182, 176, 176) !important;
+}
+
+th,td{
+  border: 1px solid black;
+  
+}
+
+.table tr:nth-child(even) { background-color: white }
+
+.table tr:nth-child(odd) { background-color: rgb(75, 156, 231); }
+
+
+tr:hover{
+  background-color:rgb(75, 156, 231) !important;
+}
+@media screen and (max-width: 576px){
+   
+    thead {
+        display: none;
+        visibility: hidden;
+      }
+    tbody, tr, th, td {
+        display: block;
+        text-align: left;
+        border: 0;      
+        padding: 5px; 
+        white-space: normal;
+      }
+
+    th[data-title]:before,
+    td[data-title]:before {
+        content: attr(data-title) ":";
+        font-weight: bold;
+        display: inline-block;
+        width: 110px;
+    }
+    th:not([data-title]) {
+      font-weight: bold;
+    }
+    
+    }
