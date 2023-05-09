@@ -12,34 +12,39 @@
   <cfset errorlist = "">
   <cfif isDefined("hidden")>
 
-      <!--- validazione telefono--->
+  <!--- validazione telefono--->
       <cfif not isNumeric(telefono)>
         <cfset errorlist = listAppend(errorlist, "telefono")>
       </cfif>
-       <cfif len(trim(form.telefono)) EQ 0>
-        <cfset errorlist = listAppend(errorlist, "telefono_space")>
-      </cfif>
 
-      <!--- validazione nome--->
-      <cfif len(trim(form.nome)) EQ 0>
-        <cfset errorlist = listAppend(errorlist, "nome")>
-      </cfif>
-
-      <!--- validazione cognome--->
-      <cfif len(trim(form.cognome)) EQ 0>
-        <cfset errorlist = listAppend(errorlist, "cognome")>
-      </cfif>
-
-       <!--- validazione email--->
-      <cfif replace(form.email," ","a")>
+  <!--- validazione email--->
+      <cfif find("a",form.email,1)>
         <cfset errorlist = listAppend(errorlist, "email")>
       </cfif>
-      
+  </cfif>
+
+  <cfif isEmpty(errorlist)>
+    <cfquery name="aggiungiContatto" datasource="andrea">
+        INSERT INTO contatti 
+        VALUES (
+
+          #form.nome#,
+          #form.cognome#, 
+          #form.data#,      
+          #form.email#,
+          #form.telefono#,
+          #form.sesso#
+          )      
+    </cfquery>
   </cfif>
 
   <!--- elenco params per validazione --->
-
+  <cfparam  name="nome" default="">
+  <cfparam  name="cognome" default="">
+  <cfparam  name="data" default="">
+  <cfparam  name="email" default="">
   <cfparam  name="telefono" default="">
+  <cfparam  name="sesso" default="">
 
 
 <div class="container mt-5">
@@ -49,7 +54,7 @@
         <div class="form-row">
           <div class="col-md-4 mb-3">
             <label for="validationTooltip01">Nome</label>
-            <input type="text" class="form-control" id="validationTooltip01" placeholder="Nome" name="nome" value="Mar co" required maxlength="50">    
+            <input type="text" class="form-control" id="validationTooltip01" placeholder="Nome" name="nome" value="Marco" required maxlength="50">    
             <cfif listFind(errorlist, "nome")>    
               <div class="valid-tooltip">
                 il nome non può contenere spazi!
@@ -58,7 +63,7 @@
           </div>
           <div class="col-md-4 mb-3">
             <label for="validationTooltip02">Cognome</label>
-            <input type="text" class="form-control" id="validationTooltip02" placeholder="Cognome" name="cognome" value="Ros si" required maxlength="50">
+            <input type="text" class="form-control" id="validationTooltip02" placeholder="Cognome" name="cognome" value="Rossi" required maxlength="50">
             <cfif listFind(errorlist, "cognome")>  
               <div class="valid-tooltip">
                 il cognome non può contenere spazi!
@@ -68,14 +73,14 @@
           <div class="col-md-4 mb-3">
             <div class="form-group">
                 <label class="active" for="dateStandard">Data di nascita</label>
-                <input type="date" id="dateStandard" name="dateStandard">
+                <input type="date" id="dateStandard" name="data">
             </div>
           </div>
         </div>
         <div class="form-row">
           <div class="col-md-6 mb-3">
             <label for="validationTooltip03">E-mail</label>
-            <input type="text" class="form-control" id="validationTooltip03" placeholder="E-mail" name="email" value="mar corossi@gmail.com" maxlength="50">
+            <input type="text" class="form-control" id="validationTooltip03" placeholder="E-mail" name="email" value="marcorossi@gmail.com" maxlength="50">
             <cfif listFind(errorlist, "email")>
               <div class="invalid-tooltip">
                 la e-mail non può contenere spazi!
@@ -84,22 +89,17 @@
           </div>
           <div class="col-md-3 mb-3">
             <label for="validationTooltip04">Telefono</label>
-            <input type="text" class="form-control" id="validationTooltip04" placeholder="N.di telefono" name="telefono" value="3323 23233" maxlength="20">
+            <input type="text" class="form-control" id="validationTooltip04" placeholder="N.di telefono" name="telefono" value="" maxlength="20">
             <cfif listFind(errorlist, "telefono")>           
               <div class="text-danger">
                 Inserire un numero corretto!
               </div>
             </cfif>
-            <cfif listFind(errorlist, "telefono_space")> 
-              <div class="text-danger">
-                Il numero non può contenere spazi!
-              </div>
-            </cfif> 
           </div>
           <div class="col-md-3 mb-3">
             <p>Sesso</p>
             <div class="mt-3">
-                <input class="me-2" type="radio" id="radio" name="tipi" value="M">
+                <input class="me-2" type="radio" id="radio" name="tipi" value="M" checked>
                 <label for="">M</label><br>
                 <input class="me-2" type="radio" id="radio" name="tipi" value="F">
                 <label for="">F</label><br>
