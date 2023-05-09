@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,9 +11,30 @@
 <cfdump  var="#form#">
   <cfset errorlist = "">
   <cfif isDefined("hidden")>
-    <cfif not isNumeric(telefono)>
-      <cfset errorlist = listAppend(errorlist, "telefono")>
-    </cfif>
+
+      <!--- validazione telefono--->
+      <cfif not isNumeric(telefono)>
+        <cfset errorlist = listAppend(errorlist, "telefono")>
+      </cfif>
+       <cfif len(trim(form.telefono)) EQ 0>
+        <cfset errorlist = listAppend(errorlist, "telefono_space")>
+      </cfif>
+
+      <!--- validazione nome--->
+      <cfif len(trim(form.nome)) EQ 0>
+        <cfset errorlist = listAppend(errorlist, "nome")>
+      </cfif>
+
+      <!--- validazione cognome--->
+      <cfif len(trim(form.cognome)) EQ 0>
+        <cfset errorlist = listAppend(errorlist, "cognome")>
+      </cfif>
+
+       <!--- validazione email--->
+      <cfif replace(form.email," ","a")>
+        <cfset errorlist = listAppend(errorlist, "email")>
+      </cfif>
+      
   </cfif>
 
   <!--- elenco params per validazione --->
@@ -28,17 +49,21 @@
         <div class="form-row">
           <div class="col-md-4 mb-3">
             <label for="validationTooltip01">Nome</label>
-            <input type="text" class="form-control" id="validationTooltip01" placeholder="Nome" name="nome" value="" required>      
+            <input type="text" class="form-control" id="validationTooltip01" placeholder="Nome" name="nome" value="Mar co" required maxlength="50">    
+            <cfif listFind(errorlist, "nome")>    
               <div class="valid-tooltip">
-                Looks good!
-              </div>           
+                il nome non può contenere spazi!
+              </div> 
+            </cfif>          
           </div>
           <div class="col-md-4 mb-3">
             <label for="validationTooltip02">Cognome</label>
-            <input type="text" class="form-control" id="validationTooltip02" placeholder="Cognome" name="cognome" value=""required>
-            <div class="valid-tooltip">
-              Looks good!
-            </div>
+            <input type="text" class="form-control" id="validationTooltip02" placeholder="Cognome" name="cognome" value="Ros si" required maxlength="50">
+            <cfif listFind(errorlist, "cognome")>  
+              <div class="valid-tooltip">
+                il cognome non può contenere spazi!
+              </div>
+            </cfif>
           </div>
           <div class="col-md-4 mb-3">
             <div class="form-group">
@@ -50,19 +75,26 @@
         <div class="form-row">
           <div class="col-md-6 mb-3">
             <label for="validationTooltip03">E-mail</label>
-            <input type="text" class="form-control" id="validationTooltip03" placeholder="E-mail" name="email" value="" >
-            <div class="invalid-tooltip">
-              Please provide a valid city.
-            </div>
+            <input type="text" class="form-control" id="validationTooltip03" placeholder="E-mail" name="email" value="mar corossi@gmail.com" maxlength="50">
+            <cfif listFind(errorlist, "email")>
+              <div class="invalid-tooltip">
+                la e-mail non può contenere spazi!
+              </div>
+            </cfif>
           </div>
           <div class="col-md-3 mb-3">
             <label for="validationTooltip04">Telefono</label>
-            <input type="text" class="form-control" id="validationTooltip04" placeholder="N.di telefono" name="telefono" value="332323233" >
+            <input type="text" class="form-control" id="validationTooltip04" placeholder="N.di telefono" name="telefono" value="3323 23233" maxlength="20">
             <cfif listFind(errorlist, "telefono")>           
               <div class="text-danger">
-                Inserire un numero corretto.
+                Inserire un numero corretto!
               </div>
             </cfif>
+            <cfif listFind(errorlist, "telefono_space")> 
+              <div class="text-danger">
+                Il numero non può contenere spazi!
+              </div>
+            </cfif> 
           </div>
           <div class="col-md-3 mb-3">
             <p>Sesso</p>
@@ -74,8 +106,8 @@
             </div>
           </div>
     </cfoutput>
-    <div class="d-flex">
-      <a href="default.cfm" type="button" class="btn btn-success me-5">SALVA</a>
-      <a href="default.cfm" type="button" class="btn btn-secondary">HOME</a>
+    <div class="d-flex align-items-center">
+      <button class="btn btn-primary me-5 mt-3" type="submit" value="submit">SALVA</button>
+      <a href="default.cfm" type="button" class="btn btn-secondary mt-3">HOME</a>
     </div>
 </div>
