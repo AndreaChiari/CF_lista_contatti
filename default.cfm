@@ -12,7 +12,7 @@
 </head>
 <body>
     <cfquery name="getContatti" datasource="andrea" result="result">
-            SELECT Nome, Cognome, Data_di_nascita, Email, Telefono,Sesso
+            SELECT Nome, Cognome, Data_di_nascita, Email, Telefono, Sesso
             FROM contatti
     </cfquery>
 
