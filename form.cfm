@@ -18,25 +18,27 @@
       </cfif>
 
   <!--- validazione email--->
-      <cfif find("a",form.email,1)>
+      <cfif find(" ",form.email,1)>
         <cfset errorlist = listAppend(errorlist, "email")>
+      </cfif>
+      <cfdump  var="#errorlist#">
+      <cfif isEmpty(errorlist)>
+        esegui la qu
+        <cfquery name="aggiungiContatto" datasource="andrea">
+            INSERT INTO contatti (nome, cognome, data_di_nascita, Email, Telefono, Sesso)
+            VALUES (
+    
+              "#form.nome#",
+              "#form.cognome#", 
+              "#form.data#",      
+              "#form.email#",
+              "#form.telefono#",
+              "#form.sesso#"
+              )      
+        </cfquery>
       </cfif>
   </cfif>
 
-  <cfif isEmpty(errorlist)>
-    <cfquery name="aggiungiContatto" datasource="andrea">
-        INSERT INTO contatti 
-        VALUES (
-
-          #form.nome#,
-          #form.cognome#, 
-          #form.data#,      
-          #form.email#,
-          #form.telefono#,
-          #form.sesso#
-          )      
-    </cfquery>
-  </cfif>
 
   <!--- elenco params per validazione --->
   <cfparam  name="nome" default="">
@@ -54,7 +56,7 @@
         <div class="form-row">
           <div class="col-md-4 mb-3">
             <label for="validationTooltip01">Nome</label>
-            <input type="text" class="form-control" id="validationTooltip01" placeholder="Nome" name="nome" value="Marco" required maxlength="50">    
+            <input type="text" class="form-control" id="validationTooltip01" placeholder="Nome" name="nome" value="#nome#" required maxlength="50">    
             <cfif listFind(errorlist, "nome")>    
               <div class="valid-tooltip">
                 il nome non può contenere spazi!
@@ -63,7 +65,7 @@
           </div>
           <div class="col-md-4 mb-3">
             <label for="validationTooltip02">Cognome</label>
-            <input type="text" class="form-control" id="validationTooltip02" placeholder="Cognome" name="cognome" value="Rossi" required maxlength="50">
+            <input type="text" class="form-control" id="validationTooltip02" placeholder="Cognome" name="cognome" value="#cognome#" required maxlength="50">
             <cfif listFind(errorlist, "cognome")>  
               <div class="valid-tooltip">
                 il cognome non può contenere spazi!
@@ -80,7 +82,7 @@
         <div class="form-row">
           <div class="col-md-6 mb-3">
             <label for="validationTooltip03">E-mail</label>
-            <input type="text" class="form-control" id="validationTooltip03" placeholder="E-mail" name="email" value="marcorossi@gmail.com" maxlength="50">
+            <input type="text" class="form-control" id="validationTooltip03" placeholder="E-mail" name="email" value="#email#" maxlength="50">
             <cfif listFind(errorlist, "email")>
               <div class="invalid-tooltip">
                 la e-mail non può contenere spazi!
@@ -89,7 +91,7 @@
           </div>
           <div class="col-md-3 mb-3">
             <label for="validationTooltip04">Telefono</label>
-            <input type="text" class="form-control" id="validationTooltip04" placeholder="N.di telefono" name="telefono" value="" maxlength="20">
+            <input type="text" class="form-control" id="validationTooltip04" placeholder="N.di telefono" name="telefono" value="#telefono#" maxlength="20">
             <cfif listFind(errorlist, "telefono")>           
               <div class="text-danger">
                 Inserire un numero corretto!
@@ -99,9 +101,9 @@
           <div class="col-md-3 mb-3">
             <p>Sesso</p>
             <div class="mt-3">
-                <input class="me-2" type="radio" id="radio" name="tipi" value="M" checked>
+                <input class="me-2" type="radio" id="radio" name="sesso" value="M" <cfif sesso is "M"> checked </cfif> >
                 <label for="">M</label><br>
-                <input class="me-2" type="radio" id="radio" name="tipi" value="F">
+                <input class="me-2" type="radio" id="radio" name="sesso" value="F"  <cfif sesso is "F"> checked </cfif>>
                 <label for="">F</label><br>
             </div>
           </div>
