@@ -49,7 +49,7 @@
 <!---   <cfscript>
     
     myDate=CreateDate()
-    writeOutput("The date is: " & myDate);
+    writeOutput(myDate);
 
   </cfscript> --->
 

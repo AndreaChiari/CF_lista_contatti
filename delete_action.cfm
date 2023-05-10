@@ -5,8 +5,8 @@
     <cfquery name="EliminaContatto"
         datasource="andrea">
         DELETE FROM Contatti
-        WHERE ID = 6
+        WHERE ID = 
     </cfquery>
     <h1>Contatto eliminato</h1>
 </body>
-    </html>
+<cflocation url = "default.cfm"> 

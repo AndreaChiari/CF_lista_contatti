@@ -57,8 +57,7 @@
                     </tr>
                 </cfoutput>
             </tbody>
-        </table>  
-        <cflocation url = "default.cfm">    
+        </table>     
             <a href="form.cfm" class="w220 btn btn-primary p-2 d-flex justify-items-center align-items-center ms-2 text-white"><i class="fa-solid fa-user-plus me-1"></i> AGGIUNGI CONTATTO</a>      
     </div>
 </body>
