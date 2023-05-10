@@ -23,14 +23,12 @@
       </cfif>
       <cfdump  var="#errorlist#">
       <cfif isEmpty(errorlist)>
-        esegui la qu
         <cfquery name="aggiungiContatto" datasource="andrea">
             INSERT INTO contatti (nome, cognome, data_di_nascita, Email, Telefono, Sesso)
-            VALUES (
-    
+            VALUES (  
               "#form.nome#",
               "#form.cognome#", 
-              "#form.data#",      
+              transformDate(),      
               "#form.email#",
               "#form.telefono#",
               "#form.sesso#"
@@ -47,6 +45,15 @@
   <cfparam  name="email" default="">
   <cfparam  name="telefono" default="">
   <cfparam  name="sesso" default="">
+
+  <cfscript>
+    function transformDate(data) { 
+      return form.data.dateFormat( 'yyyy/mm/dd' );
+   }        
+  </cfscript>
+
+  <cfdump var="#transformDate()#">
+
 
 
 <div class="container mt-5">
