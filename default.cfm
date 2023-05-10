@@ -12,7 +12,7 @@
 </head>
 <body>
     <cfquery name="getContatti" datasource="andrea" result="result">
-            SELECT Nome, Cognome, Data_di_nascita, Email, Telefono, Sesso
+            SELECT *
             FROM contatti
     </cfquery>
 
@@ -52,8 +52,8 @@
                         <td data-title="Email">#Email#</td>
                         <td data-title="Telefono">#Telefono#</td>
                         <td data-title="Sesso">#Sesso#</td>
-                        <td data-title="Edit" ><a href="form.cfm"><i class="fa-solid fa-pen-to-square"></i></a></td>   
-                        <td data-title="Delete"><a href="delete_action.cfm"><i class="fa-solid fa-trash"></i></a></td>              
+                        <td data-title="Edit" ><a href="form.cfm?ID=#id#"><i class="fa-solid fa-pen-to-square"></i></a></td>   
+                        <td data-title="Delete"><a href="delete_action.cfm?ID=#id#"><i class="fa-solid fa-trash"></i></a></td>              
                     </tr>
                 </cfoutput>
             </tbody>

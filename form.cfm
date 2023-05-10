@@ -18,23 +18,49 @@
       </cfif>
 
   <!--- validazione email--->
-      <cfif find(" ",form.email,1)>
+      <cfif not isValid("email",form.email)>
         <cfset errorlist = listAppend(errorlist, "email")>
       </cfif>
+      
+      <cftry>
+        <cfset year = ListGetAt(form.data, 3 , "/")>
+        <cfset month = ListGetAt(form.data, 2 , "/")>
+        <cfset day = ListGetAt(form.data, 1 , "/")>
+        <cfset datadb = createDate(year,month,day) >
+
+        <cfcatch type="any">
+          <cfset errorlist = listAppend(errorlist, "data")>
+        </cfcatch>
+    </cftry>
+
       <cfdump  var="#errorlist#">
       <cfif isEmpty(errorlist)>
         <cfquery name="aggiungiContatto" datasource="andrea">
             INSERT INTO contatti (nome, cognome, data_di_nascita, Email, Telefono, Sesso)
             VALUES (  
-              "#form.nome#",
-              "#form.cognome#",  
-              "#form.data#",   
-              "#form.email#",
-              "#form.telefono#",
-              "#form.sesso#"
-              )      
-
+              <cfqueryparam value = "#form.Nome#">,
+              <cfqueryparam value = "#form.Cognome#">,  
+              <cfqueryparam value = "#datadb#">,   
+              <cfqueryparam value = "#form.email#">,
+              <cfqueryparam value = "#form.telefono#">,
+              <cfqueryparam value = "#form.telefono#">,
+              )     
         </cfquery>
+
+        <cfif isDefined(id)>
+          <cfquery name="modificaContatto" datasource="andrea">
+            INSERT INTO contatti (nome, cognome, data_di_nascita, Email, Telefono, Sesso)
+            VALUES (  
+              <cfqueryparam value = "#form.Nome#">,
+              <cfqueryparam value = "#form.Cognome#">,  
+              <cfqueryparam value = "#datadb#">,   
+              <cfqueryparam value = "#form.email#">,
+              <cfqueryparam value = "#form.telefono#">,
+              <cfqueryparam value = "#form.sesso#">,
+              )      
+          </cfquery>
+        </cfif>
+        <cflocation url = "default.cfm">       
       </cfif>
   </cfif>
 
@@ -47,15 +73,6 @@
   <cfparam  name="telefono" default="">
   <cfparam  name="sesso" default="">
 
- <!---  <cfscript>
-   function Redirect(){
-    <cflocation url = "default.cfm">
-    
-   }
- 
-  </cfscript> --->
-
-
 
 <div class="container mt-5">
     <cfoutput>
@@ -66,7 +83,7 @@
             <label for="validationTooltip01">Nome</label>
             <input type="text" class="form-control" id="validationTooltip01" placeholder="Nome" name="nome" value="#nome#" required maxlength="50">    
             <cfif listFind(errorlist, "nome")>    
-              <div class="valid-tooltip">
+              <div class="text-danger">
                 il nome non può contenere spazi!
               </div> 
             </cfif>          
@@ -75,7 +92,7 @@
             <label for="validationTooltip02">Cognome</label>
             <input type="text" class="form-control" id="validationTooltip02" placeholder="Cognome" name="cognome" value="#cognome#" required maxlength="50">
             <cfif listFind(errorlist, "cognome")>  
-              <div class="valid-tooltip">
+              <div class="text-danger">
                 il cognome non può contenere spazi!
               </div>
             </cfif>
@@ -83,7 +100,12 @@
           <div class="col-md-4 mb-3">
             <div class="form-group">
                 <label class="active" for="dateStandard">Data di nascita</label>
-                <input type="date" id="dateStandard" name="data" >
+                <input type="date" id="dateStandard" name="data" value="#data#">
+                <cfif listFind(errorlist, "data")>  
+                  <div class="text-danger">
+                    la data non è valida!
+                  </div>
+                </cfif>
             </div>
           </div>
         </div>
@@ -92,7 +114,7 @@
             <label for="validationTooltip03">E-mail</label>
             <input type="text" class="form-control" id="validationTooltip03" placeholder="E-mail" name="email" value="#email#" maxlength="50">
             <cfif listFind(errorlist, "email")>
-              <div class="invalid-tooltip">
+              <div class="text-danger">
                 la e-mail non può contenere spazi!
               </div>
             </cfif>
@@ -120,7 +142,4 @@
       <button class="btn btn-primary me-5 mt-3" type="submit" value="submit">SALVA</button>
       <a href="default.cfm" type="button" class="btn btn-secondary mt-3">HOME</a>
     </div>
-    <cfif not isEmpty(telefono)>
-      <cflocation url = "default.cfm"> 
-    </cfif>
 </div>

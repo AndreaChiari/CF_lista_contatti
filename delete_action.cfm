@@ -1,11 +1,7 @@
-<head>
-    <title>Cancella contatto</title>
-</head>
-<body>
+
     <cfquery name="EliminaContatto"
         datasource="andrea">
         DELETE FROM Contatti
-        WHERE ID = 
+        WHERE ID = <cfqueryparam value = "#url.id#">
     </cfquery>
-</body>
 <cflocation url = "default.cfm"> 
