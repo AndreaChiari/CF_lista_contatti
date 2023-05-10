@@ -28,11 +28,12 @@
             VALUES (  
               "#form.nome#",
               "#form.cognome#",  
-              "#form.data#"   
+              "#form.data#",   
               "#form.email#",
               "#form.telefono#",
               "#form.sesso#"
               )      
+
         </cfquery>
       </cfif>
   </cfif>
@@ -46,11 +47,12 @@
   <cfparam  name="telefono" default="">
   <cfparam  name="sesso" default="">
 
-<!---   <cfscript>
+ <!---  <cfscript>
+   function Redirect(){
+    <cflocation url = "default.cfm">
     
-    myDate=CreateDate()
-    writeOutput(myDate);
-
+   }
+ 
   </cfscript> --->
 
 
@@ -81,7 +83,7 @@
           <div class="col-md-4 mb-3">
             <div class="form-group">
                 <label class="active" for="dateStandard">Data di nascita</label>
-                <input type="date" id="dateStandard" name="data" value="#data#">
+                <input type="date" id="dateStandard" name="data" >
             </div>
           </div>
         </div>
@@ -118,4 +120,7 @@
       <button class="btn btn-primary me-5 mt-3" type="submit" value="submit">SALVA</button>
       <a href="default.cfm" type="button" class="btn btn-secondary mt-3">HOME</a>
     </div>
+    <cfif not isEmpty(telefono)>
+      <cflocation url = "default.cfm"> 
+    </cfif>
 </div>

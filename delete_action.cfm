@@ -7,6 +7,5 @@
         DELETE FROM Contatti
         WHERE ID = 
     </cfquery>
-    <h1>Contatto eliminato</h1>
 </body>
 <cflocation url = "default.cfm"> 
