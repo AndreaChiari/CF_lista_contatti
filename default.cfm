@@ -22,6 +22,7 @@
         function correctDate() { 
                 return Data_di_nascita.dateFormat( 'dd/mm/yyyy' ) ;
              }        
+
     </cfscript>
     
     <cfinsert datasource="andrea" tablename="contact">
@@ -52,11 +53,12 @@
                         <td data-title="Telefono">#Telefono#</td>
                         <td data-title="Sesso">#Sesso#</td>
                         <td data-title="Edit" ><a href="form.cfm"><i class="fa-solid fa-pen-to-square"></i></a></td>   
-                        <td data-title="Delete"><a><i class="fa-solid fa-trash"></i></a></td>              
+                        <td data-title="Delete"><a href="delete_action.cfm"><i class="fa-solid fa-trash"></i></a></td>              
                     </tr>
                 </cfoutput>
             </tbody>
         </table>  
-        <a href="form.cfm" class="w220 btn btn-primary p-2 d-flex justify-items-center align-items-center ms-2 text-white"><i class="fa-solid fa-user-plus me-1"></i> AGGIUNGI CONTATTO</a>
+        <cflocation url = "default.cfm">    
+            <a href="form.cfm" class="w220 btn btn-primary p-2 d-flex justify-items-center align-items-center ms-2 text-white"><i class="fa-solid fa-user-plus me-1"></i> AGGIUNGI CONTATTO</a>      
     </div>
 </body>

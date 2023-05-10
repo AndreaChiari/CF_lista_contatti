@@ -27,8 +27,8 @@
             INSERT INTO contatti (nome, cognome, data_di_nascita, Email, Telefono, Sesso)
             VALUES (  
               "#form.nome#",
-              "#form.cognome#", 
-              transformDate(),      
+              "#form.cognome#",  
+              "#form.data#"   
               "#form.email#",
               "#form.telefono#",
               "#form.sesso#"
@@ -46,13 +46,12 @@
   <cfparam  name="telefono" default="">
   <cfparam  name="sesso" default="">
 
-  <cfscript>
-    function transformDate(data) { 
-      return form.data.dateFormat( 'yyyy/mm/dd' );
-   }        
-  </cfscript>
+<!---   <cfscript>
+    
+    myDate=CreateDate()
+    writeOutput("The date is: " & myDate);
 
-  <cfdump var="#transformDate()#">
+  </cfscript> --->
 
 
 
@@ -82,7 +81,7 @@
           <div class="col-md-4 mb-3">
             <div class="form-group">
                 <label class="active" for="dateStandard">Data di nascita</label>
-                <input type="date" id="dateStandard" name="data">
+                <input type="date" id="dateStandard" name="data" value="#data#">
             </div>
           </div>
         </div>
