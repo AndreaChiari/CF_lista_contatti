@@ -10,7 +10,7 @@
 
 <cfdump  var="#form#">
   <cfset errorlist = "">
-  <cfif isDefined("hidden")>
+<cfif isDefined("hidden")>
 
   <!--- validazione telefono--->
       <cfif not isNumeric(telefono)>
@@ -35,27 +35,43 @@
 
       <cfdump  var="#errorlist#">
       <cfif isEmpty(errorlist)>
-        <cfquery name="aggiungiContatto" datasource="andrea">
-            INSERT INTO contatti (nome, cognome, data_di_nascita, Email, Telefono, Sesso)
-            VALUES (  
-              <cfqueryparam value = "#form.Nome#">,
-              <cfqueryparam value = "#form.Cognome#">,  
-              <cfqueryparam value = "#datadb#">,   
-              <cfqueryparam value = "#form.email#">,
-              <cfqueryparam value = "#form.telefono#">,
-              <cfqueryparam value = "#form.sesso#">,
-              )     
-        </cfquery>
-        <cfif isDefined(url.id)>    
-          <cfquery name="modificaContatto" datasource="andrea">
-            SELECT * 
-            FROM contatti WHERE ID=#url.id#
+        <cfif not isDefined("url.id")>
+          <cfquery name="aggiungiContatto" datasource="andrea">
+              INSERT INTO contatti (nome, cognome, data_di_nascita, Email, Telefono, Sesso)
+              VALUES (  
+                <cfqueryparam value = "#form.Nome#">,
+                <cfqueryparam value = "#form.Cognome#">,  
+                <cfqueryparam value = "#datadb#">,   
+                <cfqueryparam value = "#form.email#">,
+                <cfqueryparam value = "#form.telefono#">,
+                <cfqueryparam value = "#form.sesso#">,
+                )     
           </cfquery>
+        <cfelse>
+          <cfinclude template="update.cfm">
         </cfif>
-        <cflocation url = "default.cfm">       
+        <cflocation url = "default.cfm">
       </cfif>
-    </cfif>
-    
+  <cfelse>
+
+      <!--- avvio una query se è presente l'id --->
+      <cfif isDefined("url.id")>         
+        <cfquery name="getContatto" datasource="andrea">
+          SELECT * 
+          FROM contatti WHERE ID=<cfqueryparam value = "#url.id#">
+        </cfquery>
+        <cfoutput query="getContatto">
+            <cfset nome= nome>
+            <cfset cognome= cognome>
+            <cfset data= data>
+            <cfset email= email>
+            <cfset telefono= telefono>
+            <cfset sesso= sesso>
+
+        </cfoutput>
+      </cfif>
+</cfif>
+
 
   <!--- elenco params per validazione --->
   <cfparam  name="nome" default="">
