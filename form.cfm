@@ -23,15 +23,15 @@
       </cfif>
       
       <cftry>
-        <cfset year = ListGetAt(form.data, 3 , "/")>
-        <cfset month = ListGetAt(form.data, 2 , "/")>
-        <cfset day = ListGetAt(form.data, 1 , "/")>
-        <cfset datadb = createDate(year,month,day) >
+          <cfset year = ListGetAt(form.data, 3 , "/")>
+          <cfset month = ListGetAt(form.data, 2 , "/")>
+          <cfset day = ListGetAt(form.data, 1 , "/")>
+          <cfset datadb = createDate(year,month,day) >
 
-        <cfcatch type="any">
-          <cfset errorlist = listAppend(errorlist, "data")>
-        </cfcatch>
-    </cftry>
+          <cfcatch type="any">
+            <cfset errorlist = listAppend(errorlist, "data")>
+          </cfcatch>
+      </cftry>
 
       <cfdump  var="#errorlist#">
       <cfif isEmpty(errorlist)>
@@ -43,27 +43,19 @@
               <cfqueryparam value = "#datadb#">,   
               <cfqueryparam value = "#form.email#">,
               <cfqueryparam value = "#form.telefono#">,
-              <cfqueryparam value = "#form.telefono#">,
+              <cfqueryparam value = "#form.sesso#">,
               )     
         </cfquery>
-
-        <cfif isDefined(id)>
+        <cfif isDefined(url.id)>    
           <cfquery name="modificaContatto" datasource="andrea">
-            INSERT INTO contatti (nome, cognome, data_di_nascita, Email, Telefono, Sesso)
-            VALUES (  
-              <cfqueryparam value = "#form.Nome#">,
-              <cfqueryparam value = "#form.Cognome#">,  
-              <cfqueryparam value = "#datadb#">,   
-              <cfqueryparam value = "#form.email#">,
-              <cfqueryparam value = "#form.telefono#">,
-              <cfqueryparam value = "#form.sesso#">,
-              )      
+            SELECT * 
+            FROM contatti WHERE ID=#url.id#
           </cfquery>
         </cfif>
         <cflocation url = "default.cfm">       
       </cfif>
-  </cfif>
-
+    </cfif>
+    
 
   <!--- elenco params per validazione --->
   <cfparam  name="nome" default="">
@@ -81,7 +73,8 @@
         <div class="form-row">
           <div class="col-md-4 mb-3">
             <label for="validationTooltip01">Nome</label>
-            <input type="text" class="form-control" id="validationTooltip01" placeholder="Nome" name="nome" value="#nome#" required maxlength="50">    
+            <input type="text" class="form-control" id="validationTooltip01" placeholder="Nome" name="nome"value= "#nome#" required maxlength="50">  
+             
             <cfif listFind(errorlist, "nome")>    
               <div class="text-danger">
                 il nome non può contenere spazi!
