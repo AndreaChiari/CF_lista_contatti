@@ -18,12 +18,6 @@
 
     <!--- fix data di nascita nel giusto formato --->
 
-    <cfscript>
-        function correctDate() { 
-                return Data_di_nascita.dateFormat( 'dd/mm/yyyy' ) ;
-             }        
-
-    </cfscript>
     
     <cfinsert datasource="andrea" tablename="contact">
     <cfdump  var="#getContatti#">
@@ -48,7 +42,7 @@
                     <tr>
                         <td data-title="Nome">#Nome#</td>
                         <td data-title="Cognome">#Cognome#</td>
-                        <td data-title="Data-di-nascita">#correctDate()#</td>
+                        <td data-title="Data-di-nascita">#dateFormat(data_di_nascita, 'dd/mm/yyyy' )#</td>
                         <td data-title="Email">#Email#</td>
                         <td data-title="Telefono">#Telefono#</td>
                         <td data-title="Sesso">#Sesso#</td>

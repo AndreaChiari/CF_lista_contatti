@@ -23,13 +23,14 @@
       </cfif>
       
       <cftry>
-          <cfset year = ListGetAt(form.data, 3 , "/")>
-          <cfset month = ListGetAt(form.data, 2 , "/")>
-          <cfset day = ListGetAt(form.data, 1 , "/")>
+          <cfset year = ListGetAt(form.data, 1 , "-")>
+          <cfset month = ListGetAt(form.data, 2 , "-")>
+          <cfset day = ListGetAt(form.data, 3 , "-")>
           <cfset datadb = createDate(year,month,day) >
 
           <cfcatch type="any">
             <cfset errorlist = listAppend(errorlist, "data")>
+            <cfdump var="#cfcatch#">
           </cfcatch>
       </cftry>
 
@@ -58,16 +59,15 @@
       <cfif isDefined("url.id")>         
         <cfquery name="getContatto" datasource="andrea">
           SELECT * 
-          FROM contatti WHERE ID=<cfqueryparam value = "#url.id#">
+          FROM contatti WHERE ID= <cfqueryparam value = "#url.id#">
         </cfquery>
         <cfoutput query="getContatto">
             <cfset nome= nome>
             <cfset cognome= cognome>
-            <cfset data= data>
+            <cfset data= dateFormat(data_di_nascita, 'yyyy-mm-dd' )>
             <cfset email= email>
             <cfset telefono= telefono>
             <cfset sesso= sesso>
-
         </cfoutput>
       </cfif>
 </cfif>

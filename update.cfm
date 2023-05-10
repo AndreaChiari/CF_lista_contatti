@@ -1,10 +1,11 @@
 <cfquery name="ModificaContatto" datasource="andrea"> 
     UPDATE contatti 
-    SET Nome = '#Form.nome#', 
-    Cognome = '#Form.cognome#', 
-    Data_di_nascita = '#Form.data#', 
-    Email = '#Form.email#', 
-    Telefono = '#Form.telefono#'
-    Sesso = '#Form.sesso#' ,
-    WHERE ID = #url.id# 
+    SET Nome = <cfqueryparam value = "#form.Nome#">, 
+    Cognome = <cfqueryparam value = "#form.Cognome#">, 
+    Data_di_nascita = <cfqueryparam value = "#datadb#" cfsqltype="cf_sql_date">, 
+    Email = <cfqueryparam value = "#form.email#">, 
+    Telefono = <cfqueryparam value = "#form.telefono#">,
+    Sesso = <cfqueryparam value = "#form.sesso#">
+
+    WHERE ID = <cfqueryparam value = "#url.id#"> 
 </cfquery> 
