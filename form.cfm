@@ -43,13 +43,15 @@
  <!--- validazione img--->
       <cfif len(trim(form.img))>
         <cffile action="upload"
+           nameconflict="MakeUnique"
            fileField="#form.img#"
            destination="#expandPath("img")#">
+          <cfset imgDb = cffile.serverfile>
+      <cfelse>
+        <cfset imgDb = "">
       </cfif>
-
-    
-
-      
+          
+          
   <!--- validazione data--->
       <cftry>
           <cfset year = ListGetAt(form.data, 1 , "-")>
@@ -81,7 +83,9 @@
                 <cfqueryparam value = "#form.email#">,
                 <cfqueryparam value = "#form.telefono#">,
                 <cfqueryparam value = "#form.sesso#">,
-                <cfqueryparam value = "#form.img#">,
+                <cfif not imgDb EQ "">
+                    <cfqueryparam value = "#imgDb#">,
+                </cfif>
                 )     
           </cfquery>
         <cfelse>
@@ -176,7 +180,7 @@
           </div>
           <div class="mb-3">
             <label for="formFile" class="form-label">Aggiungi la tua immagine profilo</label>
-            <input class="form-control" type="file" id="formFile"  value="#img#">
+            <input class="form-control" type="file" id="formFile" name="img" value="#img#">
           </div>
     </cfoutput>
     <div class="d-flex align-items-center">
