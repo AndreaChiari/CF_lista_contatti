@@ -178,15 +178,15 @@
             </div>
           </div>
           <div class="mb-3">
-            <cfif img is not "">
-              <div>
-                <img src="#img#" alt="#img#"/>
-              </div>
-            </cfif>
-            <cfif>
-                <label for="formFile" class="form-label">Aggiungi la tua immagine profilo</label>
-            </cfif>           
-                <input class="form-control" type="file" id="formFile" name="img" value="#img#">
+              <cfif img is not "">
+                <div>
+                  <img src="#img#" alt="#img#"/>
+                </div>
+              </cfif>
+              <cfif img is not "">
+                  <label for="formFile" class="form-label">Aggiungi la tua immagine profilo</label>
+              </cfif>           
+                  <input class="form-control" type="file" id="formFile" name="img" value="#img#">
           </div>
     </cfoutput>
     <div class="d-flex align-items-center">
