@@ -26,6 +26,10 @@ a{
     font-size: 30px;
     text-align: right;
 }
+img{
+  height: 100px;
+  width: 100px;
+}
 
 .title-row{
   background-color: rgb(182, 176, 176) !important;

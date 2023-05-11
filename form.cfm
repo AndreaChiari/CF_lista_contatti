@@ -40,14 +40,16 @@
       </cfif>
       
  <!--- validazione img--->
-      <cfif len(trim(form.img)) >
-        <cffile action="upload"
-           nameconflict="MakeUnique"
-           fileField="#form.img#"
-           destination="#expandPath("img")#">
-          <cfset imgDb = "img/#cffile.serverfile#">
-      <cfelse>
-        <cfset imgDb = "">
+      <cfif errorlist is "">
+          <cfif len(trim(form.img)) >
+            <cffile action="upload"
+            nameconflict="MakeUnique"
+            fileField="#form.img#"
+            destination="#expandPath("img")#">
+            <cfset imgDb = "img/#cffile.serverfile#">
+          <cfelse>
+            <cfset imgDb = "">
+          </cfif>
       </cfif>
           
           
