@@ -46,7 +46,7 @@
            nameconflict="MakeUnique"
            fileField="#form.img#"
            destination="#expandPath("img")#">
-          <cfset imgDb = cffile.serverfile>
+          <cfset imgDb = "img/#cffile.serverfile#">
       <cfelse>
         <cfset imgDb = "">
       </cfif>
@@ -179,6 +179,9 @@
             </div>
           </div>
           <div class="mb-3">
+            <div>
+              <img src="#imgDb#"/>
+            </div>
             <label for="formFile" class="form-label">Aggiungi la tua immagine profilo</label>
             <input class="form-control" type="file" id="formFile" name="img" value="#img#">
           </div>
