@@ -46,7 +46,7 @@
             nameconflict="MakeUnique"
             fileField="#form.img#"
             destination="#expandPath("img")#">
-            <cfset imgDb = "img/#cffile.serverfile#">
+            <cfset imgDb = "#cffile.serverfile#">
           <cfelse>
             <cfset imgDb = "">
           </cfif>

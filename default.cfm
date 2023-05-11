@@ -41,7 +41,7 @@
             <tbody>
                 <cfoutput query="getContatti">
                     <tr>
-                        <td data-title="Img"><img src="#img#"/></td>
+                        <td data-title="Img"><img src="img/#img#"/></td>
                         <td data-title="Nome">#Nome#</td>
                         <td data-title="Cognome">#Cognome#</td>
                         <td data-title="Data-di-nascita">#dateFormat(data_di_nascita, 'dd/mm/yyyy' )#</td>
