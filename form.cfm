@@ -39,32 +39,36 @@
         <cfset errorlist = listAppend(errorlist, "email")>
       </cfif>
       
- <!--- validazione img--->
-      <cfif isEmpty(errorlist)>
-          <cfif len(trim(form.img)) >
-            <cffile action="upload"
-            nameconflict="MakeUnique"
-            fileField="#form.img#"
-            destination="#expandPath("img")#">
-            <cfset imgDb = "#cffile.serverfile#">
-          <cfelse>
-            <cfset imgDb = "">
-          </cfif>
-      </cfif>
-          
-          
+      
+      
   <!--- validazione data--->
-      <cftry>
+        <cftry>
           <cfset year = ListGetAt(form.data, 1 , "-")>
           <cfset month = ListGetAt(form.data, 2 , "-")>
           <cfset day = ListGetAt(form.data, 3 , "-")>
           <cfset datadb = createDate(year,month,day)>
-
+          
           <cfcatch type="any">
             <cfset errorlist = listAppend(errorlist, "data")>
           </cfcatch>
-      </cftry>
-
+        </cftry>
+        
+  <!--- validazione img--->
+        <cfif isEmpty(errorlist)>
+          <cfif len(trim(form.img)) >
+            <cfif not accept EQ "" >
+              <cffile action="upload"
+              nameconflict="MakeUnique"
+              accept="image/jpeg, image/gif, image/jpg, image/png"
+              fileField="#form.img#"
+              destination="#expandPath("img")#">
+              <cfset imgDb = "#cffile.serverfile#">
+            <cfelse>
+              <cfset imgDb = "">
+            </cfif>
+          </cfif>
+        </cfif>
+        
   <!--- validazione file--->
       
   <!--- imposto due condizioni affinchè venga eseguita la query
@@ -80,13 +84,12 @@
                 <cfqueryparam value = "#form.Nome#">,
                 <cfqueryparam value = "#form.Cognome#">,  
                 <!--- data modificata --->
-                <cfqueryparam value = "#datadb#">,   
+                <cfqueryparam value = "#datadb#" cfsqltype="cf_sql_date">,   
                 <cfqueryparam value = "#form.email#">,
                 <cfqueryparam value = "#form.telefono#">,
                 <cfqueryparam value = "#form.sesso#">,
-                <cfif not imgDb EQ "">
-                    <cfqueryparam value = "#imgDb#">,
-                </cfif>
+                <!--- controllo se l'immagine non è vuota --->           
+                <cfqueryparam value = "#imgDb#">            
                 )     
           </cfquery>
         <cfelse>
@@ -182,7 +185,7 @@
           <div class="mb-3">
               <cfif img is not "">
                 <div>
-                  <img src="#img#" alt="#img#"/>
+                  <img src="img/#img#" alt="#img#"/>
                 </div>
               </cfif>
               <label for="formFile" class="form-label">
@@ -195,7 +198,7 @@
                   <input class="form-control" type="file" id="formFile" name="img" value="#img#">
           </div>
     </cfoutput>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center mb-5">
       <button class="btn btn-primary me-5 mt-3" type="submit" value="submit">SALVA</button>
       <a href="default.cfm" type="button" class="btn btn-secondary mt-3">HOME</a>
     </div>
