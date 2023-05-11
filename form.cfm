@@ -25,7 +25,6 @@
 <cfparam  name="sesso" default="">
 <cfparam  name="img" default="">
 
-
 <cfif isDefined("hidden")>
 
 <!--- inizio le validazioni--->
@@ -41,7 +40,7 @@
       </cfif>
       
  <!--- validazione img--->
-      <cfif len(trim(form.img))>
+      <cfif len(trim(form.img)) >
         <cffile action="upload"
            nameconflict="MakeUnique"
            fileField="#form.img#"
@@ -179,11 +178,15 @@
             </div>
           </div>
           <div class="mb-3">
-            <div>
-              <img src="#imgDb#"/>
-            </div>
-            <label for="formFile" class="form-label">Aggiungi la tua immagine profilo</label>
-            <input class="form-control" type="file" id="formFile" name="img" value="#img#">
+            <cfif img is not "">
+              <div>
+                <img src="#img#" alt="#img#"/>
+              </div>
+            </cfif>
+            <cfif>
+                <label for="formFile" class="form-label">Aggiungi la tua immagine profilo</label>
+            </cfif>           
+                <input class="form-control" type="file" id="formFile" name="img" value="#img#">
           </div>
     </cfoutput>
     <div class="d-flex align-items-center">
