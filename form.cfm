@@ -40,7 +40,7 @@
       </cfif>
       
  <!--- validazione img--->
-      <cfif errorlist is "">
+      <cfif isEmpty(errorlist)>
           <cfif len(trim(form.img)) >
             <cffile action="upload"
             nameconflict="MakeUnique"
@@ -185,9 +185,13 @@
                   <img src="#img#" alt="#img#"/>
                 </div>
               </cfif>
-              <cfif img is not "">
-                  <label for="formFile" class="form-label">Aggiungi la tua immagine profilo</label>
-              </cfif>           
+              <label for="formFile" class="form-label">
+                <cfif img is not "">
+                  Modifica la tua immagine profilo  
+                <cfelseif img is "">    
+                  Aggiungi la tua immagine profilo
+                </cfif>
+                  </label>               
                   <input class="form-control" type="file" id="formFile" name="img" value="#img#">
           </div>
     </cfoutput>
