@@ -18,7 +18,7 @@
                 SELECT *
                 FROM contatti
                 <cfif not isEmpty(filtro)>
-                    WHERE Nome = "#filtro#"              
+                    WHERE Cognome LIKE "#filtro#%"              
                 </cfif>
             </cfquery>
             
@@ -57,8 +57,8 @@
                 <thead>
                     <tr class="title-row">
                         <th data-title="Img">Immagine</th>
-                        <th data-title="Nome">Nome</th>
                         <th data-title="Cognome">Cognome</th>
+                        <th data-title="Nome">Nome</th>
                         <th data-title="Data-di-nascita">Data di Nascita</th>
                         <th data-title="Email">Email</th>
                         <th data-title="Telefono">Telefono</th> 
@@ -75,8 +75,8 @@
                             <img src="img/#img#"/>
                         </cfif>
                         </td>
-                        <td data-title="Nome">#Nome#</td>
                         <td data-title="Cognome">#Cognome#</td>
+                        <td data-title="Nome">#Nome#</td>
                         <td data-title="Data-di-nascita">#dateFormat(data_di_nascita, 'dd/mm/yyyy' )#</td>
                         <td data-title="Email">#Email#</td>
                         <td data-title="Telefono">#Telefono#</td>
