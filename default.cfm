@@ -12,14 +12,17 @@
 </head>
 <body>
     <cfoutput>
+            <cfparam  name="filtro" default="">
+
             <cfquery name="filtroContatti" datasource="andrea" result="result">
                 SELECT *
                 FROM contatti
-                WHERE Nome = "#filtro#"              
+                <cfif not isEmpty(filtro)>
+                    WHERE Nome = "#filtro#"              
+                </cfif>
             </cfquery>
             
             
-            <cfparam  name="filtro" default="">
             <!---     <cfparam  name="genere" default=""> --->
             <cfdump  var="filtrocontatti">
 
@@ -45,25 +48,24 @@
                         <button name="submitFilter" type="submit" value="submit" class="btn btn-primary">
                             <i class="fas fa-search"></i>
                         </button>
-                    </div>
-                </div>
-                <form> 
+                    </div>           
+                </form> 
            
                     
             <!--- tabella lista contatti --->  
             <table class="table" cellspacing="0">
                 <thead>
-                <tr class="title-row">
-                    <th data-title="Img">Immagine</th>
-                    <th data-title="Nome">Nome</th>
-                    <th data-title="Cognome">Cognome</th>
-                    <th data-title="Data-di-nascita">Data di Nascita</th>
-                    <th data-title="Email">Email</th>
-                    <th data-title="Telefono">Telefono</th> 
-                    <th data-title="Sesso">Sesso</th> 
-                    <th data-title="Edit">Modifica</th>  
-                    <th data-title="Delete">Elimina</th>        
-                </tr>
+                    <tr class="title-row">
+                        <th data-title="Img">Immagine</th>
+                        <th data-title="Nome">Nome</th>
+                        <th data-title="Cognome">Cognome</th>
+                        <th data-title="Data-di-nascita">Data di Nascita</th>
+                        <th data-title="Email">Email</th>
+                        <th data-title="Telefono">Telefono</th> 
+                        <th data-title="Sesso">Sesso</th> 
+                        <th data-title="Edit">Modifica</th>  
+                        <th data-title="Delete">Elimina</th>        
+                    </tr>
                 </thead>
                 <tbody>
                 <cfoutput query="filtroContatti">
