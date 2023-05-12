@@ -15,10 +15,11 @@
             <cfparam  name="filtro" default="">
 
             <cfquery name="filtroContatti" datasource="andrea" result="result">
-                SELECT *
+                SELECT * 
                 FROM contatti
                 <cfif not isEmpty(filtro)>
-                    WHERE Cognome LIKE "#filtro#%"              
+                    WHERE CONCAT_WS(' ',Cognome,Nome)
+                    LIKE "%#filtro#%"         
                 </cfif>
             </cfquery>
             
