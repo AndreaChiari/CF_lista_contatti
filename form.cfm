@@ -49,26 +49,31 @@
           <cfset datadb = createDate(year,month,day)>
           
           <cfcatch type="any">
-            <cfset errorlist = listAppend(errorlist, "data")>
+              <cfset errorlist = listAppend(errorlist, "data")>
           </cfcatch>
         </cftry>
         
   <!--- validazione img--->
         <cfif isEmpty(errorlist)>
-          <cfif len(trim(form.img)) >
-            <cfif not accept EQ "" >
-              <cffile action="upload"
-              nameconflict="MakeUnique"
-              accept="image/jpeg, image/gif, image/jpg, image/png"
-              fileField="#form.img#"
-              destination="#expandPath("img")#">
-              <cfset imgDb = "#cffile.serverfile#">
+            <cfif len(trim(form.img)) >
+                <cftry> 
+                    <cffile action="upload"
+                      nameconflict="MakeUnique"
+                      accept="image/jpeg, image/gif, image/jpg, image/png"
+                      fileField="#form.img#"
+                      destination="#expandPath("img")#">
+                      <cfset imgDb = "#cffile.serverfile#">
+                <cfcatch type="any">
+                    <cfif not accept eq "image/jpeg, image/gif, image/jpg, image/png">
+                        <cfset errorlist = listAppend(errorlist, "fileformat")>
+                    </cfif>   
+                </cfcatch>
+                </cftry> 
             <cfelse>
-              <cfset imgDb = "">
+                <cfset imgDb = "">
             </cfif>
-          </cfif>
         </cfif>
-        
+        <cfdump  var="file.accept">
   <!--- validazione file--->
       
   <!--- imposto due condizioni affinchè venga eseguita la query
@@ -196,6 +201,11 @@
                 </cfif>
                   </label>               
                   <input class="form-control" type="file" id="formFile" name="img" value="#img#">
+                  <cfif listFind(errorlist, "fileformat")>           
+                    <div class="text-danger">
+                      Inserire un formato per l'immagine corretto!
+                    </div>
+                  </cfif>
           </div>
     </cfoutput>
     <div class="d-flex align-items-center mb-5">
