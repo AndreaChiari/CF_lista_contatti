@@ -133,7 +133,7 @@
         <div class="form-row">
           <div class="col-md-4 mb-3">
             <label for="validationTooltip01">Nome</label>
-            <input type="text" class="form-control" id="validationTooltip01" placeholder="Nome" name="nome"value= "#nome#" required maxlength="50">  
+            <input type="text" class="form-control" id="validationTooltip01" placeholder="Nome" name="nome" value= "#nome#" required maxlength="50">  
              
             <cfif listFind(errorlist, "nome")>    
               <div class="text-danger">
