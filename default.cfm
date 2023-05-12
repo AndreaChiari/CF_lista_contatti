@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="lista_contatti.css?v1.2">
+    <link rel="stylesheet" href="lista_contatti.css?v1.3">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script defer src="lista_contatti.js"></script>
     <title>Lista Contatti</title>
@@ -21,8 +21,7 @@
                     WHERE CONCAT_WS(' ',Cognome,Nome)
                     LIKE "%#filtro#%"         
                 </cfif>
-                AND Sesso = "#genere#"
-                
+                AND Sesso = "#genere#"        
             </cfquery>
             
             
@@ -35,11 +34,11 @@
             <!--- filtro ricerca contatti --->
             <div>
                 <form action="" method="post">
-                <div class="col-md-3 mb-3">
+                <div class="col-md-3 d-flex justify-content-center flex-column align-items-center">
                     <p>Sesso</p>
-                    <div class="mt-3">
+                    <div class="mt-3 d-flex justify-content-center">
                         <input class="me-2" type="radio" id="radio" name="genere" value="M" <cfif genere is "M"> checked </cfif>>
-                        <label for="">M</label><br>
+                        <label class="me-3" for="">M</label><br>
                         <input class="me-2" type="radio" id="radio" name="genere" value="F"  <cfif genere is "F"> checked </cfif>>
                         <label for="">F</label><br>
                     </div>
