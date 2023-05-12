@@ -21,17 +21,21 @@
                     WHERE CONCAT_WS(' ',Cognome,Nome)
                     LIKE "%#filtro#%"         
                 </cfif>
+                AND Sesso = "#genere#"
+                
             </cfquery>
             
             
-            <!---     <cfparam  name="genere" default=""> --->
+            <cfparam  name="genere" default="">
             <cfdump  var="filtrocontatti">
 
         <div class="container">
             <h1 class="text-center text-primary mt-4 mb-5 mx-auto">LISTA CONTATTI</h1>
 
             <!--- filtro ricerca contatti --->
-               <!---  <div class="col-md-3 mb-3">
+            <div>
+                <form action="" method="post">
+                <div class="col-md-3 mb-3">
                     <p>Sesso</p>
                     <div class="mt-3">
                         <input class="me-2" type="radio" id="radio" name="genere" value="M" <cfif genere is "M"> checked </cfif>>
@@ -39,9 +43,8 @@
                         <input class="me-2" type="radio" id="radio" name="genere" value="F"  <cfif genere is "F"> checked </cfif>>
                         <label for="">F</label><br>
                     </div>
-                </div> --->
-                <form action="" method="post">
-                    <input type="hidden">
+                </div>
+
                     <div class="input-group justify-content-end mb-4">
                         <div class="form-outline">
                             <input type="search" id="form1" class="form-control" placeholder="cerca" name="filtro" value="#filtro#"/>
@@ -51,6 +54,7 @@
                         </button>
                     </div>           
                 </form> 
+            <div>
            
                     
             <!--- tabella lista contatti --->  
