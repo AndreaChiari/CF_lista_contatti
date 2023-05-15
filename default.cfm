@@ -16,12 +16,13 @@
         <cfparam  name="filtro" default="">
         <cfparam  name="genere" default="">
         <cfcookie name="cookieGenere" value="#genere#">
+        <cfcookie name="pageNumber" value= "1">      
+        <cfparam name="pageNum" default="1">
 
         <!--- cookies paginazione --->
-        <cfcookie name="results" value="#genere#">
-                                 
+        <cfcookie name="results" value="#genere#">                               
             <cfquery name="filtroContatti" datasource="andrea" result="result">
-                SELECT * 
+                SELECT   *
                 FROM contatti
                     WHERE 0 = 0
                 <cfif not isEmpty(filtro)>
@@ -37,19 +38,19 @@
                     </cfif>
                 </cfif>
                 ORDER BY Cognome
-                OFFSET 4 ROWS FETCH NEXT 6 ROWS ONLY;               
+                OFFSET 0 ROWS 
+                FETCH NEXT 4 ROWS ONLY;               
             </cfquery>
-        </cfif>
+      <cfdump  var="#filtrocontatti#">
+      </cfif>
 
-            <cfdump  var="#filtrocontatti#">
        
            
             
+      <!--- filtro ricerca contatti --->
             
         <div class="container">
             <h1 class="text-center text-primary mt-4 mb-5 mx-auto">LISTA CONTATTI</h1>
-
-            <!--- filtro ricerca contatti --->
             <div>
                 <form action="" method="post">
                     <input type="hidden" name="hidden">
@@ -87,39 +88,40 @@
                     </tr>
                 </thead>
                 <tbody>
-                <cfoutput query="filtroContatti">
-                    <tr>
-                        <td data-title="Img">
-                        <cfif not isEmpty(img)>   
-                            <img src="img/#img#"/>
-                        </cfif>
-                        </td>
-                        <td data-title="Cognome">#Cognome#</td>
-                        <td data-title="Nome">#Nome#</td>
-                        <td data-title="Data-di-nascita">#dateFormat(data_di_nascita, 'dd/mm/yyyy' )#</td>
-                        <td data-title="Email">#Email#</td>
-                        <td data-title="Telefono">#Telefono#</td>
-                        <td data-title="Sesso">#Sesso#</td>
-                        <td data-title="Edit" ><a href="form.cfm?ID=#id#"><i class="fa-solid fa-pen-to-square"></i></a></td>   
-                        <td data-title="Delete"><a href="delete_action.cfm?ID=#id#"><i class="fa-solid fa-trash"></i></a></td>              
-                    </tr>
-                </cfoutput>
+                <cfif isDefined("hidden")>
+                    <cfoutput query="filtroContatti">
+                        <tr>
+                            <td data-title="Img">
+                            <cfif not isEmpty(img)>   
+                                <img src="img/#img#"/>
+                            </cfif>
+                            </td>
+                            <td data-title="Cognome">#Cognome#</td>
+                            <td data-title="Nome">#Nome#</td>
+                            <td data-title="Data-di-nascita">#dateFormat(data_di_nascita, 'dd/mm/yyyy' )#</td>
+                            <td data-title="Email">#Email#</td>
+                            <td data-title="Telefono">#Telefono#</td>
+                            <td data-title="Sesso">#Sesso#</td>
+                            <td data-title="Edit" ><a href="form.cfm?ID=#id#"><i class="fa-solid fa-pen-to-square"></i></a></td>   
+                            <td data-title="Delete"><a href="delete_action.cfm?ID=#id#"><i class="fa-solid fa-trash"></i></a></td>              
+                        </tr>
+                    </cfoutput>
+                </cfif>
                 </tbody>
             </table>     
-                <a href="form.cfm" class="w220 btn btn-primary mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-solid fa-user-plus me-1"></i> AGGIUNGI CONTATTO</a>      
-        </div>    
+            <a href="form.cfm" class="w220 btn btn-primary mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-solid fa-user-plus me-1"></i> AGGIUNGI CONTATTO</a>      
+        </div>   
+
         <!--- paginazione --->
-
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-              <li class="page-item"><a class="page-link" href="">Previous</a></li>
-              <li class="page-item"><a class="page-link" href="">1</a></li>
-              <li class="page-item"><a class="page-link" href="">2</a></li>
-              <li class="page-item"><a class="page-link" href="">3</a></li>
-              <li class="page-item"><a class="page-link" href="">Next</a></li>
-            </ul>
-        </nav>
-
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="default.cfm">Previous</a></li>
+                        <li class="page-item"><a class="page-link" href="default.cfm">1</a></li>
+                        <li class="page-item"><a class="page-link" href="default.cfm">2</a></li>
+                        <li class="page-item"><a class="page-link" href="default.cfm">3</a></li>
+                        <li class="page-item"><a class="page-link" href="default.cfm">Next</a></li>
+                    </ul>
+                </nav>
     </cfoutput>
             
             
