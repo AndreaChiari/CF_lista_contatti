@@ -12,15 +12,15 @@
 </head>
 <body>
     <cfoutput>
-        <cfif isDefined(hidden)>
-            <cfparam  name="filtro" default="">
-            <cfparam  name="genere" default="">
-        <cfif isEmpty(cookieGenere)>
-            <cfcookie name="cookieGenere" value="">
-        </cfif>
-        </cfif>
-        
-        <cfquery name="filtroContatti" datasource="andrea" result="result">
+      <cfif isDefined("hidden")>
+        <cfparam  name="filtro" default="">
+        <cfparam  name="genere" default="">
+        <cfcookie name="cookieGenere" value="#genere#">
+
+        <!--- cookies paginazione --->
+        <cfcookie name="results" value="#genere#">
+                                 
+            <cfquery name="filtroContatti" datasource="andrea" result="result">
                 SELECT * 
                 FROM contatti
                     WHERE 0 = 0
@@ -29,12 +29,21 @@
                     LIKE "%#filtro#%"        
                 </cfif>     
                 <cfif not isEmpty(genere)>
-                    AND Sesso = "#genere#"
-                </cfif>               
+                    <cfif genere eq "Tutti">
+                        AND Sesso = "M"
+                        OR Sesso = "F"
+                    <cfelse>
+                        AND Sesso = "#cookiegenere#"
+                    </cfif>
+                </cfif>
+                ORDER BY Cognome
+                OFFSET 4 ROWS FETCH NEXT 6 ROWS ONLY;               
             </cfquery>
+        </cfif>
 
+            <cfdump  var="#filtrocontatti#">
+       
            
-    <cfdump  var="#filtrocontatti#">
             
             
         <div class="container">
@@ -43,7 +52,7 @@
             <!--- filtro ricerca contatti --->
             <div>
                 <form action="" method="post">
-                    <input type="hidden">
+                    <input type="hidden" name="hidden">
                     <div class="input-group justify-content-end mb-4">
                         <label for="genere" id="genere">Sesso:</label>
                         <select name="genere" id="genere" class="me-3 ms-1">
@@ -99,6 +108,18 @@
             </table>     
                 <a href="form.cfm" class="w220 btn btn-primary mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-solid fa-user-plus me-1"></i> AGGIUNGI CONTATTO</a>      
         </div>    
+        <!--- paginazione --->
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item"><a class="page-link" href="">Previous</a></li>
+              <li class="page-item"><a class="page-link" href="">1</a></li>
+              <li class="page-item"><a class="page-link" href="">2</a></li>
+              <li class="page-item"><a class="page-link" href="">3</a></li>
+              <li class="page-item"><a class="page-link" href="">Next</a></li>
+            </ul>
+        </nav>
+
     </cfoutput>
             
             
