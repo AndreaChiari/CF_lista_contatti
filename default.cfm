@@ -12,21 +12,26 @@
 </head>
 <body>
     <cfoutput>
-            <cfparam  name="filtro" default="">
+        <cfparam  name="filtro" default="">
+        <cfparam  name="genere" default="">
 
             <cfquery name="filtroContatti" datasource="andrea" result="result">
                 SELECT * 
                 FROM contatti
+                    WHERE 0 = 0
                 <cfif not isEmpty(filtro)>
-                    WHERE CONCAT_WS(' ',Cognome,Nome)
-                    LIKE "%#filtro#%"         
-                </cfif>
-                AND Sesso = "#genere#"        
+                    AND CONCAT_WS(' ',Cognome,Nome)
+                    LIKE "%#filtro#%"        
+                </cfif>     
+                <cfif not isEmpty(genere)>
+                    AND Sesso = "#genere#"
+                </cfif>   
             </cfquery>
+
+           
+<cfdump  var="#filtrocontatti#">
             
             
-            <cfparam  name="genere" default="">
-            <cfdump  var="filtrocontatti">
 
         <div class="container">
             <h1 class="text-center text-primary mt-4 mb-5 mx-auto">LISTA CONTATTI</h1>
@@ -34,21 +39,17 @@
             <!--- filtro ricerca contatti --->
             <div>
                 <form action="" method="post">
-                <div class="col-md-3 d-flex justify-content-center flex-column align-items-center">
-                    <p>Sesso</p>
-                    <div class="mt-3 d-flex justify-content-center">
-                        <input class="me-2" type="radio" id="radio" name="genere" value="M" <cfif genere is "M"> checked </cfif>>
-                        <label class="me-3" for="">M</label><br>
-                        <input class="me-2" type="radio" id="radio" name="genere" value="F"  <cfif genere is "F"> checked </cfif>>
-                        <label for="">F</label><br>
-                    </div>
-                </div>
-
                     <div class="input-group justify-content-end mb-4">
+                        <label for="lista_pizze" id="pizze-select-label">Scegli la tua pizza:</label>
+                        <select name="listap" id="listap" class="me-3 ms-1">
+                            <option name="genere" value="Tutti" id="option"<cfif "Genere" EQ "Tutti"> selected </cfif>> Tutti</option>
+                            <option name="genere" value="M" id="option"<cfif "Genere" EQ "M"> selected </cfif> >M</option>                      
+                            <option name="genere" value="F" id="option"<cfif "Genere" EQ "F"> selected </cfif> >F</option>           
+                        </select>
                         <div class="form-outline">
-                            <input type="search" id="form1" class="form-control" placeholder="cerca" name="filtro" value="#filtro#"/>
+                            <input type="search" id="form1" class="input-filter" placeholder="cerca" name="filtro" value="#filtro#"/>
                         </div>
-                        <button name="submitFilter" type="submit" value="submit" class="btn btn-primary">
+                        <button name="submitFilter" type="submit" value="submit" class="btnfilter d-flex justify-content-center align-items-center">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>           
