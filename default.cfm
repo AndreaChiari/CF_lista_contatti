@@ -12,37 +12,37 @@
 </head>
 <body>
     <cfoutput>
-      <cfif isDefined("hidden")>
-        <cfparam  name="filtro" default="">
-        <cfparam  name="genere" default="">
-        <cfcookie name="cookieGenere" value="#genere#">
-        <cfcookie name="pageNumber" value= "1">      
-        <cfparam name="pageNum" default="1">
+        <cfif not isDefined(cookie.genere) and not isDefined(cookie.filtro)>   
+             
+            <!--- imposto i cookies vuoti --->
+                    <cfparam  name="filtro" default="">
+                    <cfparam  name="genere" default="">
+                    <cfcookie name="cookieGenere" value="">            
+        </cfif>
+        
+        <cfif isDefined("hidden")>
+            <!--- salvo i cookies con il valore del form --->
+            <cfcookie  name="cookiegenere" value="#cookie.genere#">
+            <cfcookie  name="cookiefiltro" value="#cookie.filtro#">
+
+        </cfif>
 
         <!--- cookies paginazione --->
-        <cfcookie name="results" value="#genere#">                               
+        <cfcookie name="pageNumber" value= "1">                           
             <cfquery name="filtroContatti" datasource="andrea" result="result">
                 SELECT   *
                 FROM contatti
                     WHERE 0 = 0
-                <cfif not isEmpty(filtro)>
+                <cfif not isEmpty(cookiefiltro)>
                     AND CONCAT_WS(' ',Cognome,Nome)
-                    LIKE "%#filtro#%"        
+                    LIKE "%#cookiefiltro#%"        
                 </cfif>     
-                <cfif not isEmpty(genere)>
-                    <cfif genere eq "Tutti">
-                        AND Sesso = "M"
-                        OR Sesso = "F"
-                    <cfelse>
-                        AND Sesso = "#cookiegenere#"
-                    </cfif>
-                </cfif>
-                ORDER BY Cognome
-                OFFSET 0 ROWS 
-                FETCH NEXT 4 ROWS ONLY;               
+                <cfif not isEmpty(cookiegenere)>                  
+                    AND Sesso = "#Cookiegenere#"
+                </cfif>            
             </cfquery>
       <cfdump  var="#filtrocontatti#">
-      </cfif>
+      
 
        
            
