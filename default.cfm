@@ -12,10 +12,15 @@
 </head>
 <body>
     <cfoutput>
-        <cfparam  name="filtro" default="">
-        <cfparam  name="genere" default="">
-
-            <cfquery name="filtroContatti" datasource="andrea" result="result">
+        <cfif isDefined(hidden)>
+            <cfparam  name="filtro" default="">
+            <cfparam  name="genere" default="">
+        <cfif isEmpty(cookieGenere)>
+            <cfcookie name="cookieGenere" value="">
+        </cfif>
+        </cfif>
+        
+        <cfquery name="filtroContatti" datasource="andrea" result="result">
                 SELECT * 
                 FROM contatti
                     WHERE 0 = 0
@@ -25,26 +30,26 @@
                 </cfif>     
                 <cfif not isEmpty(genere)>
                     AND Sesso = "#genere#"
-                </cfif>   
+                </cfif>               
             </cfquery>
 
            
-<cfdump  var="#filtrocontatti#">
+    <cfdump  var="#filtrocontatti#">
             
             
-
         <div class="container">
             <h1 class="text-center text-primary mt-4 mb-5 mx-auto">LISTA CONTATTI</h1>
 
             <!--- filtro ricerca contatti --->
             <div>
                 <form action="" method="post">
+                    <input type="hidden">
                     <div class="input-group justify-content-end mb-4">
-                        <label for="lista_pizze" id="pizze-select-label">Scegli la tua pizza:</label>
-                        <select name="listap" id="listap" class="me-3 ms-1">
-                            <option name="genere" value="Tutti" id="option"<cfif "Genere" EQ "Tutti"> selected </cfif>> Tutti</option>
-                            <option name="genere" value="M" id="option"<cfif "Genere" EQ "M"> selected </cfif> >M</option>                      
-                            <option name="genere" value="F" id="option"<cfif "Genere" EQ "F"> selected </cfif> >F</option>           
+                        <label for="genere" id="genere">Sesso:</label>
+                        <select name="genere" id="genere" class="me-3 ms-1">
+                            <option name="genere" value="Tutti" id="option"<cfif genere EQ "Tutti"> selected </cfif>> Tutti</option>
+                            <option name="genere" value="M" id="option"<cfif genere EQ "M"> selected </cfif> >M</option>                      
+                            <option name="genere" value="F" id="option"<cfif genere EQ "F"> selected </cfif> >F</option>           
                         </select>
                         <div class="form-outline">
                             <input type="search" id="form1" class="input-filter" placeholder="cerca" name="filtro" value="#filtro#"/>
