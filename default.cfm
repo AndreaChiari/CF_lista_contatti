@@ -12,36 +12,36 @@
 </head>
 <body>
     <cfoutput>
-        <cfif not isDefined(cookie.genere) and not isDefined(cookie.filtro)>   
+        
+        <cfif not isDefined("cookie.genere") and not isDefined("cookie.filtro")>   
              
             <!--- imposto i cookies vuoti --->
-                    <cfparam  name="filtro" default="">
-                    <cfparam  name="genere" default="">
-                    <cfcookie name="cookieGenere" value="">            
+                    <cfcookie name="Genere" value=""> 
+                    <cfcookie name="Filtro" value="">           
         </cfif>
         
         <cfif isDefined("hidden")>
+
             <!--- salvo i cookies con il valore del form --->
-            <cfcookie  name="cookiegenere" value="#cookie.genere#">
-            <cfcookie  name="cookiefiltro" value="#cookie.filtro#">
-
+            <cfcookie  name="Genere" value="#form.genere#">
+            <cfcookie  name="Filtro" value="#form.filtro#">
         </cfif>
-
+        <cfdump  var="#cookie#">
         <!--- cookies paginazione --->
         <cfcookie name="pageNumber" value= "1">                           
             <cfquery name="filtroContatti" datasource="andrea" result="result">
                 SELECT   *
                 FROM contatti
                     WHERE 0 = 0
-                <cfif not isEmpty(cookiefiltro)>
+                <cfif not isEmpty(cookie.filtro)>
                     AND CONCAT_WS(' ',Cognome,Nome)
-                    LIKE "%#cookiefiltro#%"        
+                    LIKE "%#cookie.filtro#%"        
                 </cfif>     
-                <cfif not isEmpty(cookiegenere)>                  
-                    AND Sesso = "#Cookiegenere#"
+                <cfif not isEmpty(cookie.genere)>                  
+                    AND Sesso = "#cookie.genere#"
                 </cfif>            
             </cfquery>
-      <cfdump  var="#filtrocontatti#">
+       <cfdump  var="#filtrocontatti#">
       
 
        
@@ -57,12 +57,12 @@
                     <div class="input-group justify-content-end mb-4">
                         <label for="genere" id="genere">Sesso:</label>
                         <select name="genere" id="genere" class="me-3 ms-1">
-                            <option name="genere" value="Tutti" id="option"<cfif genere EQ "Tutti"> selected </cfif>> Tutti</option>
-                            <option name="genere" value="M" id="option"<cfif genere EQ "M"> selected </cfif> >M</option>                      
-                            <option name="genere" value="F" id="option"<cfif genere EQ "F"> selected </cfif> >F</option>           
+                            <option name="genere" value="" id="option"<cfif cookie.genere EQ ""> selected </cfif>> Tutti</option>
+                            <option name="genere" value="M" id="option"<cfif cookie.genere EQ "M"> selected </cfif> >M</option>                      
+                            <option name="genere" value="F" id="option"<cfif cookie.genere EQ "F"> selected </cfif> >F</option>           
                         </select>
                         <div class="form-outline">
-                            <input type="search" id="form1" class="input-filter" placeholder="cerca" name="filtro" value="#filtro#"/>
+                            <input type="search" id="form1" class="input-filter" placeholder="cerca" name="filtro" value="#cookie.filtro#"/>
                         </div>
                         <button name="submitFilter" type="submit" value="submit" class="btnfilter d-flex justify-content-center align-items-center">
                             <i class="fas fa-search"></i>
