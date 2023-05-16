@@ -16,6 +16,7 @@
         <cfif not isDefined("cookie.genere") and not isDefined("cookie.filtro")>   
              
             <!--- imposto i cookies vuoti --->
+
                     <cfcookie name="Genere" value=""> 
                     <cfcookie name="Filtro" value="">           
         </cfif>
@@ -46,16 +47,13 @@
        <cfdump  var="#filtrocontatti#">
 
     <!--- variabili paginazione --->
-        
+ 
         <cfset records = 4>
         <cfset totalpages = ceiling((queryRecordCount(filtrocontatti) / records))>
         <cfparam name="pageNum" default="1">
-        <cfset startrows = ((pageNum - 1)*records)+1>
-
-        <cfdump  var="#startrows#">
 
       
-            
+          
       <!--- filtro ricerca contatti --->
             
         <div class="container">
@@ -78,16 +76,17 @@
                     </div>  
 
                     <!--- paginazione --->
+
                     <select name="paginazione" id="paginazione" class="me-3 ms-1 mb-3" onchange="postForm()">
                         <cfloop index="p" from="1" to="#totalpages#">
-                            <option name="pagenumber" value="" id="option">#p#</option>
+                            <option name="pagenumber" value="#p#" id="option">#p#</option>
                         </cfloop>         
                     </select>
                  </form> 
             
-                    
-                    
+                                 
                     <!--- tabella lista contatti --->  
+
             <table class="table" cellspacing="0">
                 <thead>
                     <tr class="title-row">
