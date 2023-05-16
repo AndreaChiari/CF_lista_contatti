@@ -13,25 +13,26 @@
 <body>
     <cfoutput>
         
-        <cfif not isDefined("cookie.genere") and not isDefined("cookie.filtro")>   
+        <cfif not isDefined("cookie.genere") and not isDefined("cookie.filtro") and not isDefined("cookie.pagenumber")>   
              
             <!--- imposto i cookies vuoti --->
 
                     <cfcookie name="Genere" value=""> 
-                    <cfcookie name="Filtro" value="">           
+                    <cfcookie name="Filtro" value="">   
+                    <cfcookie name="pagenumber" value="1">        
         </cfif>
         
         <cfif isDefined("hidden")>
 
             <!--- salvo i cookies con il valore del form --->
-
+            <cfcookie  name="pagenumber" value="#form.paginazione#">
             <cfcookie  name="Genere" value="#form.genere#">
             <cfcookie  name="Filtro" value="#form.filtro#">
+           
         </cfif>
         <cfdump  var="#cookie#">
 
-    
-        <cfcookie name="pageNumber" value= "1">                           
+                             
             <cfquery name="filtroContatti" datasource="andrea" result="result">
                 SELECT   *
                 FROM contatti
@@ -47,13 +48,19 @@
        <cfdump  var="#filtrocontatti#">
 
     <!--- variabili paginazione --->
- 
-        <cfset records = 4>
-        <cfset totalpages = ceiling((queryRecordCount(filtrocontatti) / records))>
-        <cfparam name="pageNum" default="1">
-
-      
           
+        
+        <cfset records = 4>
+        <cfset startrow = (cookie.pagenumber-1) * records + 1>
+        <cfset totalpages = ceiling((queryRecordCount(filtrocontatti) / records))>
+        <cfdump  var=#startrow#>
+
+        <cfoutput>
+            (#cookie.pagenumber#-1) * #records# + 1
+        </cfoutput>
+       
+        
+
       <!--- filtro ricerca contatti --->
             
         <div class="container">
@@ -79,7 +86,7 @@
 
                     <select name="paginazione" id="paginazione" class="me-3 ms-1 mb-3" onchange="postForm()">
                         <cfloop index="p" from="1" to="#totalpages#">
-                            <option name="pagenumber" value="#p#" id="option">#p#</option>
+                            <option name="numeropagina" value=#p# id="option" <cfif cookie.pagenumber eq p> selected </cfif> >#p#</option>
                         </cfloop>         
                     </select>
                  </form> 
@@ -103,7 +110,7 @@
                 </thead>
                 <tbody>
                 <cfif isDefined("hidden")>
-                    <cfoutput query="filtroContatti" startrow="1" maxRows="#records#">
+                    <cfoutput query="filtroContatti" startrow="#startrow#" maxRows="#records#">
                         <tr>
                             <td data-title="Img">
                             <cfif not isEmpty(img)>   
