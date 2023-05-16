@@ -21,13 +21,15 @@
         </cfif>
         
         <cfif isDefined("hidden")>
-
+            
+        
             <!--- salvo i cookies con il valore del form --->
             <cfcookie  name="Genere" value="#form.genere#">
             <cfcookie  name="Filtro" value="#form.filtro#">
         </cfif>
         <cfdump  var="#cookie#">
-        <!--- cookies paginazione --->
+
+    
         <cfcookie name="pageNumber" value= "1">                           
             <cfquery name="filtroContatti" datasource="andrea" result="result">
                 SELECT   *
@@ -42,6 +44,11 @@
                 </cfif>            
             </cfquery>
        <cfdump  var="#filtrocontatti#">
+
+    <!--- parametri paginazione --->
+        <cfset records = 4>
+        <cfset pagenumber = ceiling((queryRecordCount(filtrocontatti) / records))>
+        <cfdump  var="#pagenumber#">
       
 
        
@@ -69,10 +76,16 @@
                         </button>
                     </div>           
                 </form> 
-            <div>
-           
+                <div>
                     
-            <!--- tabella lista contatti --->  
+                    <!--- paginazione --->
+                    <select name="paginazione" id="paginazione" class="me-3 ms-1 mb-3">
+                        <cfloop index="p" from="1" to="#pagenumber#">
+                            <option name="pagenumber" value="#p#" id="option">#p#</option>
+                        </cfloop>         
+                    </select>
+                    
+                    <!--- tabella lista contatti --->  
             <table class="table" cellspacing="0">
                 <thead>
                     <tr class="title-row">
@@ -89,7 +102,7 @@
                 </thead>
                 <tbody>
                 <cfif isDefined("hidden")>
-                    <cfoutput query="filtroContatti">
+                    <cfoutput query="filtroContatti" startrow="1" maxRows="4">
                         <tr>
                             <td data-title="Img">
                             <cfif not isEmpty(img)>   
@@ -112,16 +125,7 @@
             <a href="form.cfm" class="w220 btn btn-primary mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-solid fa-user-plus me-1"></i> AGGIUNGI CONTATTO</a>      
         </div>   
 
-        <!--- paginazione --->
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="default.cfm">Previous</a></li>
-                        <li class="page-item"><a class="page-link" href="default.cfm">1</a></li>
-                        <li class="page-item"><a class="page-link" href="default.cfm">2</a></li>
-                        <li class="page-item"><a class="page-link" href="default.cfm">3</a></li>
-                        <li class="page-item"><a class="page-link" href="default.cfm">Next</a></li>
-                    </ul>
-                </nav>
+          
     </cfoutput>
             
             
