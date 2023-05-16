@@ -23,6 +23,7 @@
         <cfif isDefined("hidden")>
 
             <!--- salvo i cookies con il valore del form --->
+
             <cfcookie  name="Genere" value="#form.genere#">
             <cfcookie  name="Filtro" value="#form.filtro#">
         </cfif>
@@ -45,9 +46,13 @@
        <cfdump  var="#filtrocontatti#">
 
     <!--- variabili paginazione --->
-   
+        
         <cfset records = 4>
         <cfset totalpages = ceiling((queryRecordCount(filtrocontatti) / records))>
+        <cfparam name="pageNum" default="1">
+        <cfset startrows = ((pageNum - 1)*records)+1>
+
+        <cfdump  var="#startrows#">
 
       
             
