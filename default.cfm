@@ -47,19 +47,13 @@
             </cfquery>
        <cfdump  var="#filtrocontatti#">
 
-    <!--- variabili paginazione --->
-          
-        
+      <!--- variabili paginazione --->
+                
         <cfset records = 4>
         <cfset startrow = (cookie.pagenumber-1) * records + 1>
         <cfset totalpages = ceiling((queryRecordCount(filtrocontatti) / records))>
         <cfdump  var=#startrow#>
-
-        <cfoutput>
-            (#cookie.pagenumber#-1) * #records# + 1
-        </cfoutput>
-       
-        
+ 
 
       <!--- filtro ricerca contatti --->
             
@@ -109,24 +103,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                <cfif isDefined("hidden")>
-                    <cfoutput query="filtroContatti" startrow="#startrow#" maxRows="#records#">
-                        <tr>
-                            <td data-title="Img">
-                            <cfif not isEmpty(img)>   
-                                <img src="img/#img#"/>
-                            </cfif>
-                            </td>
-                            <td data-title="Cognome">#Cognome#</td>
-                            <td data-title="Nome">#Nome#</td>
-                            <td data-title="Data-di-nascita">#dateFormat(data_di_nascita, 'dd/mm/yyyy' )#</td>
-                            <td data-title="Email">#Email#</td>
-                            <td data-title="Telefono">#Telefono#</td>
-                            <td data-title="Sesso">#Sesso#</td>
-                            <td data-title="Edit" ><a href="form.cfm?ID=#id#"><i class="fa-solid fa-pen-to-square"></i></a></td>   
-                            <td data-title="Delete"><a href="delete_action.cfm?ID=#id#"><i class="fa-solid fa-trash"></i></a></td>              
-                        </tr>
-                    </cfoutput>
+                <cfif isDefined("hidden")>               
+                        <cfoutput query="filtroContatti" startrow="#startrow#" maxRows="#records#">
+                            <tr>
+                                <td data-title="Img">
+                                    <cfif not isEmpty(img)>   
+                                        <img src="img/#img#"/>
+                                    </cfif>
+                                </td>
+                                <td data-title="Cognome">#Cognome#</td>
+                                <td data-title="Nome">#Nome#</td>
+                                <td data-title="Data-di-nascita">#dateFormat(data_di_nascita, 'dd/mm/yyyy' )#</td>
+                                <td data-title="Email">#Email#</td>
+                                <td data-title="Telefono">#Telefono#</td>
+                                <td data-title="Sesso">#Sesso#</td>
+                                <td data-title="Edit" ><a href="form.cfm?ID=#id#"><i class="fa-solid fa-pen-to-square"></i></a></td>   
+                                <td data-title="Delete"><a href="delete_action.cfm?ID=#id#"><i class="fa-solid fa-trash"></i></a></td>              
+                            </tr>
+                        </cfoutput>
                 </cfif>
                 </tbody>
             </table>     
