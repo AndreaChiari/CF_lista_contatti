@@ -21,8 +21,7 @@
         </cfif>
         
         <cfif isDefined("hidden")>
-            
-        
+
             <!--- salvo i cookies con il valore del form --->
             <cfcookie  name="Genere" value="#form.genere#">
             <cfcookie  name="Filtro" value="#form.filtro#">
@@ -45,21 +44,18 @@
             </cfquery>
        <cfdump  var="#filtrocontatti#">
 
-    <!--- parametri paginazione --->
+    <!--- variabili paginazione --->
+   
         <cfset records = 4>
-        <cfset pagenumber = ceiling((queryRecordCount(filtrocontatti) / records))>
-        <cfdump  var="#pagenumber#">
-      
+        <cfset totalpages = ceiling((queryRecordCount(filtrocontatti) / records))>
 
-       
-           
+      
             
       <!--- filtro ricerca contatti --->
             
         <div class="container">
-            <h1 class="text-center text-primary mt-4 mb-5 mx-auto">LISTA CONTATTI</h1>
-            <div>
-                <form action="" method="post">
+            <h1 class="text-center text-primary mt-4 mb-5 mx-auto">LISTA CONTATTI</h1>  
+                 <form action="" method="post" id="filterform">
                     <input type="hidden" name="hidden">
                     <div class="input-group justify-content-end mb-4">
                         <label for="genere" id="genere">Sesso:</label>
@@ -74,16 +70,17 @@
                         <button name="submitFilter" type="submit" value="submit" class="btnfilter d-flex justify-content-center align-items-center">
                             <i class="fas fa-search"></i>
                         </button>
-                    </div>           
-                </form> 
-                <div>
-                    
+                    </div>  
+
                     <!--- paginazione --->
-                    <select name="paginazione" id="paginazione" class="me-3 ms-1 mb-3">
-                        <cfloop index="p" from="1" to="#pagenumber#">
-                            <option name="pagenumber" value="#p#" id="option">#p#</option>
+                    <select name="paginazione" id="paginazione" class="me-3 ms-1 mb-3" onchange="postForm()">
+                        <cfloop index="p" from="1" to="#totalpages#">
+                            <option name="pagenumber" value="" id="option">#p#</option>
                         </cfloop>         
                     </select>
+                 </form> 
+            
+                    
                     
                     <!--- tabella lista contatti --->  
             <table class="table" cellspacing="0">
@@ -102,7 +99,7 @@
                 </thead>
                 <tbody>
                 <cfif isDefined("hidden")>
-                    <cfoutput query="filtroContatti" startrow="1" maxRows="4">
+                    <cfoutput query="filtroContatti" startrow="1" maxRows="#records#">
                         <tr>
                             <td data-title="Img">
                             <cfif not isEmpty(img)>   
