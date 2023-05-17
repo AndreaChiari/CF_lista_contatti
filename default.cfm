@@ -23,28 +23,33 @@
         </cfif>
         
         <cfif isDefined("hidden")>
+            
+            <!--- salvo i cookies con il valore del form  e se i valori non corrispondono con gi input del form rimando a pg1--->
+            <cfif form.filtro NEQ cookie.filtro or form.genere NEQ cookie.genere>
 
-            <!--- salvo i cookies con il valore del form --->
-            <cfcookie  name="pagenumber" value="#form.paginazione#">
+                <cfcookie  name="pagenumber"value="1">
+            <cfelse>    
+                <cfcookie  name="pagenumber"value="#form.paginazione#">
+            </cfif>
+
             <cfcookie  name="Genere" value="#form.genere#">
             <cfcookie  name="Filtro" value="#form.filtro#">
-           
         </cfif>
-        <cfdump  var="#cookie#">
+        <cfdump var="#cookie#">
 
                              
-            <cfquery name="filtroContatti" datasource="andrea" result="result">
-                SELECT   *
-                FROM contatti
-                    WHERE 0 = 0
-                <cfif not isEmpty(cookie.filtro)>
-                    AND CONCAT_WS(' ',Cognome,Nome)
-                    LIKE "%#cookie.filtro#%"        
-                </cfif>     
-                <cfif not isEmpty(cookie.genere)>                  
-                    AND Sesso = "#cookie.genere#"
-                </cfif>            
-            </cfquery>
+        <cfquery name="filtroContatti" datasource="andrea" result="result">
+            SELECT   *
+            FROM contatti
+                WHERE 0 = 0
+            <cfif not isEmpty(cookie.filtro)>
+                AND CONCAT_WS(' ',Cognome,Nome)
+                LIKE "%#cookie.filtro#%"        
+            </cfif>     
+            <cfif not isEmpty(cookie.genere)>                  
+                AND Sesso = "#cookie.genere#"
+            </cfif>            
+        </cfquery>
        <cfdump  var="#filtrocontatti#">
 
       <!--- variabili paginazione --->
@@ -58,7 +63,7 @@
       <!--- filtro ricerca contatti --->
             
         <div class="container">
-            <h1 class="text-center text-primary mt-4 mb-5 mx-auto">LISTA CONTATTI</h1>  
+            <h1 class="text-center text-primary mt-4 mb-5 mx-auto">LISTA CONTATTI</h1>             
                  <form action="" method="post" id="filterform">
                     <input type="hidden" name="hidden">
                     <div class="input-group justify-content-end mb-4">
@@ -82,9 +87,7 @@
                         <cfloop index="p" from="1" to="#totalpages#">
                             <option name="numeropagina" value=#p# id="option" <cfif cookie.pagenumber eq p> selected </cfif> >#p#</option>
                         </cfloop>         
-                    </select>
-                 </form> 
-            
+                    </select>                      
                                  
                     <!--- tabella lista contatti --->  
 
@@ -102,8 +105,7 @@
                         <th data-title="Delete">Elimina</th>        
                     </tr>
                 </thead>
-                <tbody>
-                <cfif isDefined("hidden")>               
+                <tbody>     
                         <cfoutput query="filtroContatti" startrow="#startrow#" maxRows="#records#">
                             <tr>
                                 <td data-title="Img">
@@ -120,14 +122,11 @@
                                 <td data-title="Edit" ><a href="form.cfm?ID=#id#"><i class="fa-solid fa-pen-to-square"></i></a></td>   
                                 <td data-title="Delete"><a href="delete_action.cfm?ID=#id#"><i class="fa-solid fa-trash"></i></a></td>              
                             </tr>
-                        </cfoutput>
-                </cfif>
+                        </cfoutput>              
                 </tbody>
             </table>     
             <a href="form.cfm" class="w220 btn btn-primary mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-solid fa-user-plus me-1"></i> AGGIUNGI CONTATTO</a>      
-        </div>   
-
-          
+        </div>          
     </cfoutput>
             
             
