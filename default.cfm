@@ -48,8 +48,7 @@
             </cfif>     
             <cfif not isEmpty(cookie.genere)>                  
                 AND Sesso = "#cookie.genere#"
-            </cfif>  
-                JOIN Province          
+            </cfif>           
         </cfquery>
        <cfdump  var="#filtrocontatti#">
 
