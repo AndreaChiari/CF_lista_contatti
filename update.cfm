@@ -2,6 +2,7 @@
     UPDATE contatti 
     SET 
     Nome = <cfqueryparam value = "#form.Nome#">, 
+    provincia_id= <cfqueryparam value = "#form.province#">,
     Cognome = <cfqueryparam value = "#form.Cognome#">, 
     Data_di_nascita = <cfqueryparam value = "#datadb#" cfsqltype="cf_sql_date">, 
     Email = <cfqueryparam value = "#form.email#">, 

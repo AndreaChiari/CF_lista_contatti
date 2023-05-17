@@ -26,12 +26,17 @@
 <cfparam  name="sesso" default="">
 <cfparam  name="currentimg" default="">
 <cfparam  name="checkimg" default="">
-<cfparam  name="provincia" default="">
+<cfparam  name="province" default="">
 
 <cfif isDefined("hidden")>
 
 <!--- inizio le validazioni--->
 
+    <!--- validazione provincia--->
+
+    <cfif isempty(form.province)>
+      <cfset errorlist = listAppend(errorlist, "provincia")>
+    </cfif>
   <!--- validazione telefono--->
       <cfif not isNumeric(telefono)>
         <cfset errorlist = listAppend(errorlist, "telefono")>
@@ -75,9 +80,6 @@
             </cfif>
         </cfif>
         <cfdump  var="file.accept">
-
-
-  <!--- validazione file--->
       
   <!--- imposto due condizioni affinchè venga eseguita la query
          per poi inserire una nuova row nel db: 
@@ -87,9 +89,10 @@
       <cfif isEmpty(errorlist)>
         <cfif not isDefined("url.id")>
           <cfquery name="aggiungiContatto" datasource="andrea">
-              INSERT INTO contatti (nome, cognome, data_di_nascita, Email, Telefono, Sesso, Img)
+              INSERT INTO contatti (nome, provincia_id, cognome, data_di_nascita, Email, Telefono, Sesso, Img)
               VALUES (  
                 <cfqueryparam value = "#form.Nome#">,
+                <cfqueryparam value = "#form.Province#">, 
                 <cfqueryparam value = "#form.Cognome#">,  
                 <!--- data modificata --->
                 <cfqueryparam value = "#datadb#" cfsqltype="cf_sql_date">,   
@@ -116,6 +119,7 @@
         </cfquery>
         <cfoutput query="getContatto">
             <cfset nome= nome>
+            <cfset province = provincia_id>
             <cfset cognome= cognome>
             <cfset data= dateFormat(data_di_nascita, 'yyyy-mm-dd' )>
             <cfset email= email>
@@ -125,11 +129,12 @@
         </cfoutput>
       </cfif>
 
+</cfif>
+
       <cfquery name="getProvince" datasource="andrea">
-          SELECT Nome 
+          SELECT *, ID as idprovincia 
           FROM province
       </cfquery>
-</cfif>
 
 
 <div class="container mt-5">
@@ -188,11 +193,16 @@
             </cfif>
             <div class="mt-3">
               <select name="province" id="province" class="me-3 ms-1 mb-3"> 
-                  <option name="provincia" value="" id="option" <cfif provincia eq "#nome#"> selected </cfif>> --- </option>
+                  <option name="provincia" value="" id="option" <cfif province eq ""> selected </cfif>> --- </option>
                 <cfloop query="getProvince">
-                  <option name="provincia" value="#nome#" id="option" <cfif provincia eq "#nome#"> selected </cfif>> #nome# </option>
+                  <option name="provincia" value="#idprovincia#" id="option" <cfif province eq idprovincia> selected </cfif>> #nome# </option>
                 </cfloop>             
-              </select>   
+              </select>
+              <cfif listFind(errorlist, "provincia")>           
+                <div class="text-danger">
+                  Inserire una provincia!
+                </div>
+              </cfif>   
             </div>        
           </div>
           <div class="col-md-3 mb-3">

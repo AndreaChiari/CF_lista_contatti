@@ -44,11 +44,11 @@
             LEFT JOIN province ON contatti.provincia_id = province.ID
                 WHERE 0 = 0
             <cfif not isEmpty(cookie.filtro)>
-                AND CONCAT_WS(' ',Cognome,Nome)
+                AND CONCAT_WS(' ',Cognome,contatti.nome)
                 LIKE "%#cookie.filtro#%"        
             </cfif>     
             <cfif not isEmpty(cookie.genere)>                  
-                AND Sesso = "#cookie.genere#",
+                AND Sesso = "#cookie.genere#"
             </cfif>   
         </cfquery>
        <cfdump  var="#filtrocontatti#">
