@@ -26,6 +26,7 @@
 <cfparam  name="sesso" default="">
 <cfparam  name="currentimg" default="">
 <cfparam  name="checkimg" default="">
+<cfparam  name="province" default="">
 
 <cfif isDefined("hidden")>
 
@@ -180,6 +181,14 @@
                 Inserire un numero corretto!
               </div>
             </cfif>
+            <div class="mt-3">
+              <select name="province" id="province" class="me-3 ms-1 mb-3">
+                <option name="provincia" value="va" id="option" <cfif province eq "va"> selected </cfif>> VA </option>
+                    <option name="provincia" value="mi" id="option" <cfif province eq "mi"> selected </cfif>> MI </option>
+                    <option name="provincia" value="co" id="option" <cfif province eq "co"> selected </cfif>> CO </option>
+                    <option name="provincia" value="bs" id="option" <cfif province eq "bs"> selected </cfif>> BS </option>
+              </select>   
+            </div>        
           </div>
           <div class="col-md-3 mb-3">
             <p>Sesso</p>
