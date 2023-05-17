@@ -39,16 +39,17 @@
 
                              
         <cfquery name="filtroContatti" datasource="andrea" result="result">
-            SELECT   *
+            SELECT contatti.*, province.nome AS Nomeprovincia
             FROM contatti
+            LEFT JOIN province ON contatti.provincia_id = province.ID
                 WHERE 0 = 0
             <cfif not isEmpty(cookie.filtro)>
                 AND CONCAT_WS(' ',Cognome,Nome)
                 LIKE "%#cookie.filtro#%"        
             </cfif>     
             <cfif not isEmpty(cookie.genere)>                  
-                AND Sesso = "#cookie.genere#"
-            </cfif>           
+                AND Sesso = "#cookie.genere#",
+            </cfif>   
         </cfquery>
        <cfdump  var="#filtrocontatti#">
 
@@ -100,6 +101,7 @@
                         <th data-title="Data-di-nascita">Data di Nascita</th>
                         <th data-title="Email">Email</th>
                         <th data-title="Telefono">Telefono</th> 
+                        <th data-title="Provincia">Provincia</th> 
                         <th data-title="Sesso">Sesso</th> 
                         <th data-title="Edit">Modifica</th>  
                         <th data-title="Delete">Elimina</th>        
@@ -118,6 +120,7 @@
                                 <td data-title="Data-di-nascita">#dateFormat(data_di_nascita, 'dd/mm/yyyy' )#</td>
                                 <td data-title="Email">#Email#</td>
                                 <td data-title="Telefono">#Telefono#</td>
+                                <td data-title="Province">#Nomeprovincia#</td>
                                 <td data-title="Sesso">#Sesso#</td>
                                 <td data-title="Edit" ><a href="form.cfm?ID=#id#"><i class="fa-solid fa-pen-to-square"></i></a></td>   
                                 <td data-title="Delete"><a href="delete_action.cfm?ID=#id#"><i class="fa-solid fa-trash"></i></a></td>              
