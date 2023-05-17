@@ -27,7 +27,6 @@
             
             <!--- salvo i cookies con il valore del form  e se i valori non corrispondono con gi input del form rimando a pg1--->
             <cfif form.filtro NEQ cookie.filtro or form.genere NEQ cookie.genere>
-
                 <cfcookie  name="pagenumber"value="1">
             <cfelse>    
                 <cfcookie  name="pagenumber"value="#form.paginazione#">
@@ -53,11 +52,18 @@
             </cfif>   
         </cfquery>
        <cfdump  var="#filtrocontatti#">
+
+        <!--- download excel cfspreadsheet method --->
+
        <cfset path = expandPath("./table.xls")>
-       <cfspreadsheet action="write" fileName="\\staging-01\andrea\CF_lista_contatti/table.xls" query="filtroContatti" overwrite=true >
+       <cfspreadsheet action="write" fileName="#path#" query="filtroContatti" overwrite=true >
+
+       <!--- download excel cffile method --->
        
-      <!--- variabili paginazione --->
-                
+       <cfset path = expandPath("./tablefile.xls")>
+       <cffile action="write" addnewline="yes" file="#path#" output="" fixnewline="yes"> 
+
+      <!--- variabili paginazione --->             
         <cfset records = 4>
         <cfset startrow = (cookie.pagenumber-1) * records + 1>
         <cfset totalpages = ceiling((queryRecordCount(filtrocontatti) / records))>
