@@ -61,7 +61,10 @@
        <!--- download excel cffile method --->
        
        <cfset path = expandPath("./tablefile.xls")>
-       <cffile action="write" addnewline="yes" file="#path#" output="" fixnewline="yes"> 
+       <cffile  action="write" file="#path#" output="nome">
+       <cfloop query="filtroContatti">
+        <cffile action="append" file="#path#" output="#nome#"> 
+       </cfloop>
 
       <!--- variabili paginazione --->             
         <cfset records = 4>
