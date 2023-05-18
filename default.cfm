@@ -56,15 +56,8 @@
         <!--- download excel cfspreadsheet method --->
 
        <cfset path = expandPath("./table.xls")>
-       <cfspreadsheet action="write" fileName="#path#" query="filtroContatti" overwrite=true >
-
-       <!--- download excel cffile method --->
-       
-       <cfset path = expandPath("./tablefile.xls")>
-       <cffile  action="write" file="#path#" output="nome">
-       <cfloop query="filtroContatti">
-        <cffile action="append" file="#path#" output="#nome#"> 
-       </cfloop>
+       <cffile action="write" file="#path#" output="">
+       <cfspreadsheet action="write" fileName="#path#" query="filtroContatti" overwrite="true" >
 
       <!--- variabili paginazione --->             
         <cfset records = 4>
@@ -146,7 +139,7 @@
                 </div> 
                 <div class="d-flex">
                     <a href="table.xls" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-sharp fa-solid fa-file-excel me-1"></i>  cfspreadsheet</a>  
-                    <a href="" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-sharp fa-regular fa-file-excel me-1"></i>  cfdocs</a>
+                    <a href="tablefile.cfm" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-sharp fa-regular fa-file-excel me-1"></i>  cfdocs</a>
                 </div>  
             </div> 
         </div>          
