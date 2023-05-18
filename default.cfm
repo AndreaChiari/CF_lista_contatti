@@ -78,45 +78,6 @@
                                  
                     <!--- tabella lista contatti --->  
 
-                    <!--- download con cfdocument --->
-                    <cfdocument format="PDF">
-                        <cfoutput query="filtrocontatti" >
-                        <cfdocumentsection>
-                        <cfdocumentitem type="header">
-                        <font size="-3"><i>Salary Report</i></font>
-                        </cfdocumentitem>
-                        <cfdocumentitem type="footer">
-                        <font size="-3">Page #cfdocument.currentpagenumber#</font>
-                        </cfdocumentitem>
-                        <h2>#dept_name#</h2>
-                        <table width="95%" border="2" cellspacing="2" cellpadding="2" >
-                        <tr>
-                        <th>Employee</th>
-                        <th>Salary</th>
-                        </tr>
-                        <cfset deptTotal = 0 >
-                        <!--- inner cfoutput --->
-                        <cfoutput>
-                        <tr>
-                        <td><font size="-1">
-                        #empSalary.lastname#, #empSalary.firstname#</font>
-                        </td>
-                        <td align="right"><font size="-1">
-                        #DollarFormat(empSalary.salary)#</font>
-                        </td>
-                        </tr>
-                        <cfset deptTotal = deptTotal + empSalary.salary>
-                        </cfoutput>
-                        <tr>
-                        <td align="right"><font size="-1">Total</font></td>
-                        <td align="right"><font size="-1">#DollarFormat(deptTotal)#</font></td>
-                        </tr>
-                        <cfset deptTotal = 0>
-                        </table>
-                        </cfdocumentsection>
-                        </cfoutput>
-                        </cfdocument>
-
             <table class="table" cellspacing="0">
                 <thead>
                     <tr class="title-row">
@@ -160,7 +121,7 @@
                 <div class="d-flex">
                     <a href="table.cfm" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-sharp fa-solid fa-file-excel me-1"></i> cfspreadsheet </a>  
                     <a href="tablefile.cfm" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-sharp fa-regular fa-file-excel me-1"></i> cfcontent </a>
-                    <a href="tablefile.cfm" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-sharp fa-regular fa-file-excel me-1"></i> cfdocument </a>
+                    <a href="tabletopdf.cfm" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-regular fa-file-pdf me-1"></i> cfdocument </a>
                 </div>  
             </div> 
         </div>          
