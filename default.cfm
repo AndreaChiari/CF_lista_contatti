@@ -12,21 +12,24 @@
 </head>
 <body>
     <cfoutput>
+        <!--- definisco la mia variabile contatti --->
+        <cfset p = "contatti">
         
 
-        <cfif not isDefined("cookie.genere") and not isDefined("cookie.filtro") and not isDefined("cookie.pagenumber")>   
+        <cfif not isDefined("cookie.genere") and not isDefined("cookie.filtro") and not isDefined("cookie.province")>   
              
             <!--- imposto i cookies vuoti --->
 
                     <cfcookie name="Genere" value=""> 
                     <cfcookie name="Filtro" value="">   
-                    <cfcookie name="pagenumber" value="1">        
+                    <cfcookie name="pagenumber" value="1">    
+                    <cfcookie name="province" value="">     
         </cfif>
         
         <cfif isDefined("hidden")>
             
             <!--- salvo i cookies con il valore del form  e se i valori non corrispondono con gi input del form rimando a pg1--->
-            <cfif form.filtro NEQ cookie.filtro or form.genere NEQ cookie.genere>
+            <cfif form.filtro NEQ cookie.filtro or form.genere NEQ cookie.genere or form.province NEQ cookie.province>
                 <cfcookie  name="pagenumber"value="1">
             <cfelse>    
                 <cfcookie  name="pagenumber"value="#form.paginazione#">
@@ -34,6 +37,7 @@
 
             <cfcookie  name="Genere" value="#form.genere#">
             <cfcookie  name="Filtro" value="#form.filtro#">
+            <cfcookie  name="Province" value="#form.province#">
         </cfif>
         <cfdump var="#cookie#">
                       
@@ -54,15 +58,30 @@
                  <form action="" method="post" id="filterform">
                     <input type="hidden" name="hidden">
                     <div class="input-group justify-content-end mb-4">
+
+                        <!--- filtro sesso --->
                         <label for="genere" id="genere">Sesso:</label>
                         <select name="genere" id="genere" class="me-3 ms-1">
                             <option name="genere" value="" id="option"<cfif cookie.genere EQ ""> selected </cfif>> Tutti</option>
                             <option name="genere" value="M" id="option"<cfif cookie.genere EQ "M"> selected </cfif> >M</option>                      
                             <option name="genere" value="F" id="option"<cfif cookie.genere EQ "F"> selected </cfif> >F</option>           
                         </select>
+
+                        <!--- filtro ricerca per nome/cognome --->
                         <div class="form-outline">
                             <input type="search" id="form1" class="input-filter" placeholder="cerca" name="filtro" value="#cookie.filtro#"/>
                         </div>
+
+                        <!--- filtro province --->
+                       <!---  <label for="filtroprovince" id="filtroprovince">Sesso:</label>
+                        <div class="mt-3">
+                            <select name="province" id="provincefiltroselect" class="me-3 ms-1 mb-3"> 
+                                <option name="provincia" value="" id="option" <cfif province eq ""> selected </cfif>> --- </option>
+                              <cfloop query="filtroContatti">
+                                <option name="provincia" value="#idprovincia#" id="option" <cfif province eq idprovincia> selected </cfif>> #nomeprovincia# </option>
+                              </cfloop>             
+                            </select> --->
+
                         <button name="submitFilter" type="submit" value="submit" class="btnfilter d-flex justify-content-center align-items-center">
                             <i class="fas fa-search"></i>
                         </button>

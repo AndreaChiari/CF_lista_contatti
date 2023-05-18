@@ -6,7 +6,9 @@
             <cfdocumentitem  type="header">
                 <h1 style="text-align:center; color:blue; font-size:35px">LISTA CONTATTI</h1>
             </cfdocumentitem >
-           
+            <cfdocumentitem type="footer">
+                <p style="text-align:center;">Pagina #cfdocument.currentPageNumber# di #cfdocument.totalPageCount#</p>
+            </cfdocumentitem>
             <cfdocumentsection>
             <table border="1" class="table" cellspacing="0" style="width:100%; font-size:12px" >    
                 <thead>
@@ -35,8 +37,5 @@
                 </tbody>
             </table>
             </cfdocumentsection>  
-            <cfdocumentitem type="footer">
-                <p style="text-align:center;">Pagina #cfdocument.currentPageNumber# di #cfdocument.totalPageCount#</p>
-            </cfdocumentitem>
         </cfoutput>
     </cfdocument>
