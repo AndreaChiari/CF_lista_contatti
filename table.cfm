@@ -1,6 +1,14 @@
+<!--- <script defer src="lista_contatti.js"></script> --->
 <cfinclude  template="querycontatti.cfm">
-<cfheader name="Content-Disposition" value="attachment; filename=table.xls">
+
+<cfheader name="Content-Disposition" value="inline; filename=table.xls">
+<cfcontent type="application/msexcel" file="table.xls">
 
 <cfset path = expandPath("./table.xls")>
 <cfspreadsheet action="write" fileName="#path#" query="filtroContatti" overwrite="true" >
-<a onload href="table.xls"> <a>
+
+<body onload="downloadExcel()">
+    <a id="linktoxls" href="table.xls"><a> 
+    <a id="redirect" href="default.cfm"><a>
+</body>
+    

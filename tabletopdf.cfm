@@ -1,8 +1,9 @@
 <cfinclude  template="querycontatti.cfm">
-<cfheader name="Content-Disposition" value="attachment; filename=table.pdf">
+<cfheader name="Content-Disposition" value="inline; filename=table.pdf">
 
-<cfdocument format="PDF" marginbottom="0" margintop="1" marginleft="0" marginright="0" pagetype="a4">    
-        <table border="1" class="table" cellspacing="0" >    
+<cfdocument format="PDF" marginbottom="0" margintop="1" marginleft="0.5" marginright="0.5" pagetype="a4"> 
+    
+        <table border="1" class="table" cellspacing="0" style="width:100%; font-size:12px" >    
             <thead>
                 <tr class="title-row">
                     <th data-title="Cognome">Cognome</th>
@@ -20,7 +21,7 @@
                         <td data-title="Cognome">#Cognome#</td>
                         <td data-title="Nome">#Nome#</td>
                         <td data-title="Data-di-nascita">#dateFormat(data_di_nascita, 'dd/mm/yyyy' )#</td>
-                        <td style="width: 10px" data-title="Email">#Email#</td>
+                        <td style="width: 50%" data-title="Email">#Email#</td>
                         <td data-title="Telefono">#Telefono#</td>
                         <td data-title="Province">#Nomeprovincia#</td>
                         <td data-title="Sesso">#Sesso#</td>              
