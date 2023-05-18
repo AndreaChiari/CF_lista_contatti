@@ -1,14 +1,10 @@
 
 <cfsetting enablecfoutputonly="Yes">
 
-<cfheader name="Content-Disposition" value="attachment; filename=tablefile.xls">
-<cfcontent type="application/msexcel" file="tablefile.cfm">
+<cfheader name="Content-Disposition" value="filename=tablefile.xls">
+<cfcontent type="application/msexcel">
 
-<cfquery name="excelcontatti" datasource="andrea" >
-    SELECT contatti.*, province.nome AS Nomeprovincia
-    FROM contatti
-    LEFT JOIN province ON contatti.provincia_id = province.ID             
-</cfquery>
+<cfinclude  template="querycontatti.cfm">
 
 <cfoutput>
 <table class="table" cellspacing="0">
@@ -24,7 +20,7 @@
         </tr>
     </thead>
     <tbody>     
-        <cfloop query="excelcontatti">                              
+        <cfloop query="filtrocontatti">                              
             <tr>        
                 <td data-title="Cognome">#Cognome#</td>
                 <td data-title="Nome">#Nome#</td>

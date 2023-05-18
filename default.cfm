@@ -36,28 +36,9 @@
             <cfcookie  name="Filtro" value="#form.filtro#">
         </cfif>
         <cfdump var="#cookie#">
-
-                             
-        <cfquery name="filtroContatti" datasource="andrea" result="result">
-            SELECT contatti.*, province.nome AS Nomeprovincia
-            FROM contatti
-            LEFT JOIN province ON contatti.provincia_id = province.ID
-                WHERE 0 = 0
-            <cfif not isEmpty(cookie.filtro)>
-                AND CONCAT_WS(' ',Cognome,contatti.nome)
-                LIKE "%#cookie.filtro#%"        
-            </cfif>     
-            <cfif not isEmpty(cookie.genere)>                  
-                AND Sesso = "#cookie.genere#"
-            </cfif>   
-        </cfquery>
-       <cfdump  var="#filtrocontatti#">
-
-        <!--- download excel cfspreadsheet method --->
-
-       <cfset path = expandPath("./table.xls")>
-       <cffile action="write" file="#path#" output="">
-       <cfspreadsheet action="write" fileName="#path#" query="filtroContatti" overwrite="true" >
+                      
+        <!--- query principale importata --->
+        <cfinclude  template="querycontatti.cfm">
 
       <!--- variabili paginazione --->             
         <cfset records = 4>
@@ -96,6 +77,45 @@
                     </select>                      
                                  
                     <!--- tabella lista contatti --->  
+
+                    <!--- download con cfdocument --->
+                    <cfdocument format="PDF">
+                        <cfoutput query="filtrocontatti" >
+                        <cfdocumentsection>
+                        <cfdocumentitem type="header">
+                        <font size="-3"><i>Salary Report</i></font>
+                        </cfdocumentitem>
+                        <cfdocumentitem type="footer">
+                        <font size="-3">Page #cfdocument.currentpagenumber#</font>
+                        </cfdocumentitem>
+                        <h2>#dept_name#</h2>
+                        <table width="95%" border="2" cellspacing="2" cellpadding="2" >
+                        <tr>
+                        <th>Employee</th>
+                        <th>Salary</th>
+                        </tr>
+                        <cfset deptTotal = 0 >
+                        <!--- inner cfoutput --->
+                        <cfoutput>
+                        <tr>
+                        <td><font size="-1">
+                        #empSalary.lastname#, #empSalary.firstname#</font>
+                        </td>
+                        <td align="right"><font size="-1">
+                        #DollarFormat(empSalary.salary)#</font>
+                        </td>
+                        </tr>
+                        <cfset deptTotal = deptTotal + empSalary.salary>
+                        </cfoutput>
+                        <tr>
+                        <td align="right"><font size="-1">Total</font></td>
+                        <td align="right"><font size="-1">#DollarFormat(deptTotal)#</font></td>
+                        </tr>
+                        <cfset deptTotal = 0>
+                        </table>
+                        </cfdocumentsection>
+                        </cfoutput>
+                        </cfdocument>
 
             <table class="table" cellspacing="0">
                 <thead>
@@ -138,8 +158,9 @@
                     <a href="form.cfm" class="w220 btn btn-primary mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-solid fa-user-plus me-3"></i> Aggiungi Contatto</a>  
                 </div> 
                 <div class="d-flex">
-                    <a href="table.xls" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-sharp fa-solid fa-file-excel me-1"></i>  cfspreadsheet</a>  
-                    <a href="tablefile.cfm" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-sharp fa-regular fa-file-excel me-1"></i>  cfdocs</a>
+                    <a href="table.cfm" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-sharp fa-solid fa-file-excel me-1"></i> cfspreadsheet </a>  
+                    <a href="tablefile.cfm" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-sharp fa-regular fa-file-excel me-1"></i> cfcontent </a>
+                    <a href="tablefile.cfm" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-sharp fa-regular fa-file-excel me-1"></i> cfdocument </a>
                 </div>  
             </div> 
         </div>          
