@@ -19,8 +19,8 @@
 
                     <cfcookie name="Genere" value=""> 
                     <cfcookie name="Filtro" value="">   
+                    <!--- <cfcookie name="Province" value=""> --->     
                     <cfcookie name="pagenumber" value="1">    
-                    <!--- <cfcookie name="province" value="">   --->   
         </cfif>
         
         <cfif isDefined("hidden")>
@@ -35,7 +35,7 @@
 
             <cfcookie  name="Genere" value="#form.genere#">
             <cfcookie  name="Filtro" value="#form.filtro#">
-            <!--- <cfcookie  name="Province" value="#form.province#"> --->
+     <!---        <cfcookie  name="Province" value="#form.province#"> --->
         </cfif>
         <cfdump var="#cookie#">
                       
@@ -71,15 +71,15 @@
                         </div>
 
                         <!--- filtro province --->
-                       <!---  <label for="filtroprovince" id="filtroprovince">Sesso:</label>
+                     <!---    <label for="filtroprovince" id="filtroprovince">Sesso:</label>
                         <div class="mt-3">
                             <select name="province" id="provincefiltroselect" class="me-3 ms-1 mb-3"> 
                                 <option name="provincia" value="" id="option" <cfif province eq ""> selected </cfif>> --- </option>
                               <cfloop query="filtroContatti">
                                 <option name="provincia" value="#idprovincia#" id="option" <cfif province eq idprovincia> selected </cfif>> #nomeprovincia# </option>
                               </cfloop>             
-                            </select> --->
-
+                            </select>
+ --->
                         <button name="submitFilter" type="submit" value="submit" class="btnfilter d-flex justify-content-center align-items-center">
                             <i class="fas fa-search"></i>
                         </button>

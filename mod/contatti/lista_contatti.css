@@ -22,6 +22,7 @@ a{
   color: green !important;
   font-size: 20px;
 }
+
 /* filter input */
 .input-filter{
   height: 35px;
@@ -59,6 +60,15 @@ th,td{
   
 }
 
+ul{
+  list-style-type: none;
+}
+
+.footer{
+  color:white;
+  height: 100px;
+  background-color: black;
+}
 
 .table tr:nth-child(even) { background-color: white }
 
@@ -68,6 +78,7 @@ th,td{
 tr:hover{
   background-color:rgb(75, 156, 231) !important;
 }
+
 @media screen and (max-width: 576px){
    
     thead {
