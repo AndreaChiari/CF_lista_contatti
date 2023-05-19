@@ -1,14 +1,12 @@
 
  <cfoutput>
-
     <cfparam  name="url.p" default="">
 
-    <cfif url.p eq "contatti" || url.p eq "profilo">
-        <cfinclude  template="mod/#url.p#">
-    </cfif>
+    <cfinclude  template="/menu.cfm">
+    <cfinclude  template="/footer.cfm">
 
-    <cfif url.p eq "contatti" || url.p eq "profilo">
-        <cfinclude  template="menu/#url.p#">
+    <cfif not isEmpty(url.p)>
+        <cfinclude  template="mod/#url.p#/default.cfm">
     </cfif>
-
+    
  </cfoutput>

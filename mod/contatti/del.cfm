@@ -4,4 +4,4 @@
         DELETE FROM Contatti
         WHERE ID = <cfqueryparam value = "#url.id#">
     </cfquery>
-<cflocation url = "default.cfm"> 
+<cflocation url = "listing.cfm"> 

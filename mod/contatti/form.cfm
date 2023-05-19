@@ -106,7 +106,7 @@
         <cfelse>
           <cfinclude template="update.cfm">
         </cfif>
-        <cflocation url = "default.cfm">
+        <cflocation url = "listing.cfm">
       </cfif>
 
 <cfelse>
@@ -243,6 +243,6 @@
     </cfoutput>
     <div class="d-flex align-items-center mb-5">
       <button class="btn btn-primary me-5 mt-3" type="submit" value="submit">SALVA</button>
-      <a href="default.cfm" type="button" class="btn btn-secondary mt-3">HOME</a>
+      <a href="listing.cfm" type="button" class="btn btn-secondary mt-3">HOME</a>
     </div>
 </div>

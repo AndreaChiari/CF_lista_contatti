@@ -20,13 +20,14 @@
                     <cfcookie name="Genere" value=""> 
                     <cfcookie name="Filtro" value="">   
                     <cfcookie name="pagenumber" value="1">    
-                    <cfcookie name="province" value="">     
+                    <!--- <cfcookie name="province" value="">   --->   
         </cfif>
         
         <cfif isDefined("hidden")>
             
             <!--- salvo i cookies con il valore del form  e se i valori non corrispondono con gi input del form rimando a pg1--->
-            <cfif form.filtro NEQ cookie.filtro or form.genere NEQ cookie.genere or form.province NEQ cookie.province>
+            
+            <cfif form.filtro NEQ cookie.filtro or form.genere NEQ cookie.genere <!--- or form.province NEQ cookie.province --->>
                 <cfcookie  name="pagenumber"value="1">
             <cfelse>    
                 <cfcookie  name="pagenumber"value="#form.paginazione#">
@@ -34,7 +35,7 @@
 
             <cfcookie  name="Genere" value="#form.genere#">
             <cfcookie  name="Filtro" value="#form.filtro#">
-            <cfcookie  name="Province" value="#form.province#">
+            <!--- <cfcookie  name="Province" value="#form.province#"> --->
         </cfif>
         <cfdump var="#cookie#">
                       
@@ -125,7 +126,7 @@
                                 <td data-title="Province">#Nomeprovincia#</td>
                                 <td data-title="Sesso">#Sesso#</td>
                                 <td data-title="Edit" ><a href="form.cfm?ID=#id#"><i class="fa-solid fa-pen-to-square"></i></a></td>   
-                                <td data-title="Delete"><a href="delete_action.cfm?ID=#id#"><i class="fa-solid fa-trash"></i></a></td>              
+                                <td data-title="Delete"><a href="del.cfm?ID=#id#"><i class="fa-solid fa-trash"></i></a></td>              
                             </tr>
                         </cfoutput>              
                 </tbody>
