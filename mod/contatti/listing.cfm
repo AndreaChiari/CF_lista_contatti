@@ -1,18 +1,6 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="lista_contatti.css?v1.3">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script defer src="lista_contatti.js"></script>
-    <title>Lista Contatti</title>
-</head>
-<body>
+﻿<body>
     <cfoutput>
-        <cfinclude  template="../../menu.cfm"> 
+    
         <cfif not isDefined("cookie.genere") and not isDefined("cookie.filtro") and not isDefined("cookie.province")>   
              
             <!--- imposto i cookies vuoti --->
@@ -114,7 +102,7 @@
                             <tr>
                                 <td data-title="Img">
                                     <cfif not isEmpty(img)>   
-                                        <img src="img/#img#"/>
+                                        <img src="mod/contatti/img/#img#"/>
                                     </cfif>
                                 </td>
                                 <td data-title="Cognome">#Cognome#</td>
@@ -124,24 +112,22 @@
                                 <td data-title="Telefono">#Telefono#</td>
                                 <td data-title="Province">#Nomeprovincia#</td>
                                 <td data-title="Sesso">#Sesso#</td>
-                                <td data-title="Edit" ><a href="form.cfm?ID=#id#"><i class="fa-solid fa-pen-to-square"></i></a></td>   
-                                <td data-title="Delete"><a href="del.cfm?ID=#id#"><i class="fa-solid fa-trash"></i></a></td>              
+                                <td data-title="Edit" ><a href="?p=contatti&update=#id#"><i class="fa-solid fa-pen-to-square"></i></a></td>   
+                                <td data-title="Delete"><a href="?p=contatti&del=#id#"><i class="fa-solid fa-trash"></i></a></td>              
                             </tr>
                         </cfoutput>              
                 </tbody>
             </table>   
             <div class="d-flex justify-content-between"> 
                 <div> 
-                    <a href="form.cfm" class="w220 btn btn-primary mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-solid fa-user-plus me-3"></i> Aggiungi Contatto</a>  
+                    <a href="?p=contatti&id=0" class="w220 btn btn-primary mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-solid fa-user-plus me-3"></i> Aggiungi Contatto</a>  
                 </div> 
                 <div class="d-flex">
-                    <a href="table.cfm" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-sharp fa-solid fa-file-excel me-1"></i> cfspreadsheet </a>  
+                    <a href="?p=form" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-sharp fa-solid fa-file-excel me-1"></i> cfspreadsheet </a>  
                     <a href="tablefile.cfm" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-sharp fa-regular fa-file-excel me-1"></i> cfcontent </a>
                     <a href="tabletopdf.cfm" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-regular fa-file-pdf me-1"></i> cfdocument </a>
                 </div>  
             </div> 
         </div>          
-    </cfoutput>
-    <cfinclude  template="../../footer.cfm"> 
-            
+    </cfoutput>     
 </body>

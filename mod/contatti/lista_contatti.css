@@ -60,10 +60,7 @@ th,td{
   
 }
 
-main{
-  height: 100vh;
-}
-.listing-container{
+.main-form-container,.listing-container{
   height: 100vh;
 }
 

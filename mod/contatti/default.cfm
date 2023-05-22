@@ -1,7 +1,4 @@
 <cfoutput>
-
-    <!--- update --->
-   
     <cfif isdefined("url.id")>    
         <cfinclude  template="form.cfm">
     <cfelseif isDefined("url.del")>

@@ -6,10 +6,10 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active text-white" aria-current="page" href="../../default.cfm">Home</a>
+            <a class="nav-link active text-white" aria-current="page" href="/CF_lista_contatti">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="mod/contatti/listing.cfm">Lista Contatti</a>
+            <a class="nav-link text-white" href="?p=contatti">Lista Contatti</a>
           </li>
         </ul>
       </div>
