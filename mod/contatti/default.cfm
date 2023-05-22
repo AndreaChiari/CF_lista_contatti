@@ -3,9 +3,7 @@
         <cfinclude  template="form.cfm">
     <cfelseif isDefined("url.del")>
         <cfinclude  template="del.cfm">
-    <cfelseif isDefined("url.update")>
-        <cfinclude  template="update.cfm">
-    <cfelse>    
+    <cfelse>
         <cfinclude  template="listing.cfm">
     </cfif>
  </cfoutput>

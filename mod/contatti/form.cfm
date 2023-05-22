@@ -96,7 +96,7 @@
                 <cfqueryparam value = "#imgDb#">            
                 )         
           </cfquery>
-        <cfelseif "url.update" NEQ 0>
+        <cfelseif "url.id" GT 0>
           <cfinclude template="update.cfm">
         </cfif>
         <cflocation url = "default.cfm?p=contatti">
@@ -105,7 +105,7 @@
 <cfelse>
 
   <!--- avvio una query per precompilare i campi se è presente l'id --->
-      <cfif url.id NEQ 0>         
+      <cfif "url.update" GT 0>         
         <cfquery name="getContatto" datasource="andrea">
           SELECT * 
           FROM contatti WHERE ID= <cfqueryparam value = "#url.id#">
@@ -210,7 +210,7 @@
           <div class="mb-3">
               <cfif currentimg is not "">
                 <div class="mb-3 d-flex align-items-center">
-                  <img src="img/#currentimg#" alt=""/>
+                  <img src="mod/contatti/img/#currentimg#" alt=""/>
 
                   <!--- checkbox delete img --->
                   <div class="ms-3">

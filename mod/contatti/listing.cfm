@@ -112,7 +112,7 @@
                                 <td data-title="Telefono">#Telefono#</td>
                                 <td data-title="Province">#Nomeprovincia#</td>
                                 <td data-title="Sesso">#Sesso#</td>
-                                <td data-title="Edit" ><a href="?p=contatti&update=#id#"><i class="fa-solid fa-pen-to-square"></i></a></td>   
+                                <td data-title="Edit" ><a href="?p=contatti&id=#id#"><i class="fa-solid fa-pen-to-square"></i></a></td>   
                                 <td data-title="Delete"><a href="?p=contatti&del=#id#"><i class="fa-solid fa-trash"></i></a></td>              
                             </tr>
                         </cfoutput>              
