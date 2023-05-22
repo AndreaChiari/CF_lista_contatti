@@ -1,6 +1,6 @@
 ﻿<body>
     <cfoutput>
-    
+    <cfdump  var="#application#">
         <cfif not isDefined("cookie.genere") and not isDefined("cookie.filtro") and not isDefined("cookie.province")>   
              
             <!--- imposto i cookies vuoti --->

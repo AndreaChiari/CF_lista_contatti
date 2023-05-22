@@ -1,4 +1,4 @@
-<cfquery name="filtroContatti" datasource="andrea">
+<cfquery name="filtroContatti">
     SELECT contatti.*, province.nome AS Nomeprovincia
     FROM contatti
     LEFT JOIN province ON contatti.provincia_id = province.ID
