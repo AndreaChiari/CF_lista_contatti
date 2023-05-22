@@ -11,13 +11,15 @@
 
 <cfdump  var="#form#">
 
+
 <!--- setto una variabile per raccogliere gli errori in una lista--->
 
 <cfset errorlist = "">
 
 <!--- controllo se l'input hidden è definito--->
 
-<!--- imposto i params per la validazione con default vuoto--->
+<!--- imposto i params --->
+<cfparam  name="url.id" default="">
 <cfparam  name="nome" default="">
 <cfparam  name="cognome" default="">
 <cfparam  name="data" default="">
@@ -87,7 +89,7 @@
          2) se l'id non è presente nella query string --->
 
       <cfif isEmpty(errorlist)>
-        <cfif not isDefined("url.id")>
+        <cfif url.id EQ 0>
           <cfquery name="aggiungiContatto" datasource="andrea">
               INSERT INTO contatti (nome, provincia_id, cognome, data_di_nascita, Email, Telefono, Sesso, Img)
               VALUES (  
@@ -112,7 +114,7 @@
 <cfelse>
 
   <!--- avvio una query per precompilare i campi se è presente l'id --->
-      <cfif isDefined("url.id")>         
+      <cfif isDefined("url.id") & url.id NEQ 0>         
         <cfquery name="getContatto" datasource="andrea">
           SELECT * 
           FROM contatti WHERE ID= <cfqueryparam value = "#url.id#">
@@ -137,7 +139,9 @@
       </cfquery>
 
 
-<div class="container mt-5">
+<cfinclude  template="../../menu.cfm">
+
+<div class="container mt-5 main-form-container">
     <cfoutput>
       <form class="needs-validation" action="" method="post" enctype="multipart/form-data">
         <input type="hidden" name="hidden">
@@ -241,8 +245,11 @@
                   </cfif>
           </div>
     </cfoutput>
-    <div class="d-flex align-items-center mb-5">
-      <button class="btn btn-primary me-5 mt-3" type="submit" value="submit">SALVA</button>
-      <a href="listing.cfm" type="button" class="btn btn-secondary mt-3">HOME</a>
-    </div>
+        <div class="d-flex align-items-center mb-5">
+          <button class="btn btn-primary me-5 mt-3" type="submit" value="submit">SALVA</button>
+          <a href="listing.cfm" type="button" class="btn btn-secondary mt-3">HOME</a>
+        </div>
+   </form>
 </div>
+</div>
+<cfinclude  template="../../footer.cfm">

@@ -12,7 +12,7 @@
 </head>
 <body>
     <cfoutput>
-       
+        <cfinclude  template="../../menu.cfm"> 
         <cfif not isDefined("cookie.genere") and not isDefined("cookie.filtro") and not isDefined("cookie.province")>   
              
             <!--- imposto i cookies vuoti --->
@@ -51,7 +51,7 @@
 
       <!--- filtro ricerca contatti --->
             
-        <div class="container">
+        <div class="container listing-container">
             <h1 class="text-center text-primary mt-4 mb-5 mx-auto">LISTA CONTATTI</h1>             
                  <form action="" method="post" id="filterform">
                     <input type="hidden" name="hidden">
@@ -78,8 +78,7 @@
                               <cfloop query="filtroContatti">
                                 <option name="provincia" value="#idprovincia#" id="option" <cfif province eq idprovincia> selected </cfif>> #nomeprovincia# </option>
                               </cfloop>             
-                            </select>
- --->
+                            </select> --->
                         <button name="submitFilter" type="submit" value="submit" class="btnfilter d-flex justify-content-center align-items-center">
                             <i class="fas fa-search"></i>
                         </button>
@@ -143,6 +142,6 @@
             </div> 
         </div>          
     </cfoutput>
-            
+    <cfinclude  template="../../footer.cfm"> 
             
 </body>

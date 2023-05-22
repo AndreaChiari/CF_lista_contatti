@@ -1,7 +1,8 @@
-<div class="card">
-    <div class="card-body d-flex justify-content-between">
-     <ul>
-        <li>Chi siamo</li>
+<link rel="stylesheet" href="lista_contatti.css">
+<div class="footer">
+    <div class="d-flex justify-content-between">
+     <ul class="d-flex">
+        <li class="">Chi siamo</li>
         <li>Partners</li>
         <li>Community</li>
         <li>Contatti</li>
@@ -13,4 +14,4 @@
         <i class="fa-brands fa-linkedin fs-2"></i>
      </div>
     </div>
-  </div>
+</div>

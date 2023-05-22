@@ -60,14 +60,21 @@ th,td{
   
 }
 
+main{
+  height: 100vh;
+}
+.listing-container{
+  height: 100vh;
+}
+
 ul{
   list-style-type: none;
 }
 
 .footer{
+  background-color:rgb(13, 110, 253) ;
   color:white;
-  height: 100px;
-  background-color: black;
+
 }
 
 .table tr:nth-child(even) { background-color: white }
