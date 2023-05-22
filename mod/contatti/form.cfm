@@ -9,6 +9,7 @@
 <!--- controllo se l'input hidden è definito--->
 
 <!--- imposto i params --->
+<cfparam  name="url.update" default="">
 <cfparam  name="url.id" default="">
 <cfparam  name="nome" default="">
 <cfparam  name="cognome" default="">
@@ -53,6 +54,7 @@
           </cfcatch>
         </cftry>
         
+        <cfdump  var="#expandPath("mod/contatti/img")#">
   <!--- validazione img e upload in locale--->
         <cfif isEmpty(errorlist)>
             <cfif len(trim(form.img)) >
@@ -61,7 +63,7 @@
                       nameconflict="MakeUnique"
                       accept="image/jpeg, image/gif, image/jpg, image/png"
                       fileField="#form.img#"
-                      destination="#expandPath("img")#">
+                      destination="#expandPath("mod/contatti/img")#">
                       <cfset imgDb = "#cffile.serverfile#">
                 <cfcatch type="any">
                         <cfset errorlist = listAppend(errorlist, "fileformat")>            
@@ -71,7 +73,6 @@
                 <cfset imgDb = "">
             </cfif>
         </cfif>
-        <cfdump  var="file.accept">
       
   <!--- imposto due condizioni affinchè venga eseguita la query
          per poi inserire una nuova row nel db: 
@@ -95,16 +96,16 @@
                 <cfqueryparam value = "#imgDb#">            
                 )         
           </cfquery>
-        <cfelseif url.update NEQ 0>
+        <cfelseif "url.update" NEQ 0>
           <cfinclude template="update.cfm">
         </cfif>
-        <cflocation url = "listing.cfm">
+        <cflocation url = "default.cfm?p=contatti">
       </cfif>
 
 <cfelse>
 
   <!--- avvio una query per precompilare i campi se è presente l'id --->
-      <cfif isDefined("url.update") & url.update NEQ 0>         
+      <cfif url.id NEQ 0>         
         <cfquery name="getContatto" datasource="andrea">
           SELECT * 
           FROM contatti WHERE ID= <cfqueryparam value = "#url.id#">
