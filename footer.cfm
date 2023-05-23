@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="lista_contatti.css">
+
 <div class="footer">
     <div class="d-flex justify-content-between">
      <ul class="d-flex">

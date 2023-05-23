@@ -1,4 +1,3 @@
-<cfinclude  template="mod/contatti/querycontatti.cfm">
 
 <nav class="navbar navbar-expand-lg bg-primary header">
     <div class="container-fluid">
@@ -15,12 +14,19 @@
           </li>
         </ul>
         <div class="d-flex">
+          <cfif isEmpty(url.p)>
             <div>
-                <h5 class="text-white">Login</h5>
+              <a href="?p=signin"><h5 class="text-white me-3">Registrati</h5></a>
             </div>
             <div>
+              <a href="?p=login"><h5 class="text-white">Login</h5></a>
+            </div>
+            <cfelse>
+              <img class="me-5 imglogo" src="mod/contatti/img/Logo-azienda.jpg">
+          </cfif>
+            <div>
                 <cfoutput>
-                    <h5 class="text-white">#filtrocontatti.email#</h5>
+                    <h5 class="text-white"></h5>
                 </cfoutput>
             </div>
         </div>

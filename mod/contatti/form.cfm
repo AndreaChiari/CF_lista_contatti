@@ -2,11 +2,11 @@
 <cfdump  var="#form#">
 
 
-<!--- setto una variabile per raccogliere gli errori in una lista--->
+<!--- setto una variabile per raccogliere gli errori in una lista --->
 
 <cfset errorlist = "">
 
-<!--- controllo se l'input hidden è definito--->
+<!--- controllo se l'input hidden è definito --->
 
 <!--- imposto i params --->
 <cfparam  name="url.update" default="">
