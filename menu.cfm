@@ -24,7 +24,7 @@
               <a href="?p=signin"><h5 class="text-white me-3">Registrati</h5></a>
             </div>
             <div>
-              <a href="?p=login"><h5 class="text-white">Login</h5></a>
+              <a href="?p=login"><h5 class="text-white me-2">Login</h5></a>
             </div>
             <cfelse>
               <div class="d-flex justify-content-center align-items-center">

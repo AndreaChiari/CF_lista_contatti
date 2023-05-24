@@ -17,11 +17,14 @@
 
     <cfinclude  template="menu.cfm">
     <main>
-        <cfif isdefined("session.name")>
-            <cfinclude  template="mod/contatti/welcome.cfm">
+        <cfif isdefined("session.name") OR url.p is "login">
             <cfif not isEmpty(url.p)>
                 <cfinclude  template="mod/#url.p#/default.cfm">
+            <cfelse>
+                <cfinclude  template="mod/contatti/loginsuccess.cfm">
             </cfif>
+        <cfelse>
+            <cfinclude  template="mod/welcome/default.cfm">
         </cfif>
     </main>
     <cfinclude template="footer.cfm">
