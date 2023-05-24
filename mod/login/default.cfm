@@ -9,21 +9,17 @@
         <cfquery name="login" datasource="andrea">
             SELECT * 
             FROM utenti   
-            WHERE nome = <cfqueryparam value = "#form.nomeutente#"> 
+            WHERE email = <cfqueryparam value = "#form.emailutente#"> 
             AND psw = <cfqueryparam value = "#form.password#"> 
         </cfquery>
 
+<cfdump  var="#login#">
 
     <cfif login.recordCount GTE 1 >
-            <cfset session.name = nomeutente />
-            <cfset session.id = id/>
-            <cflocation url="?p=contatti">
-        <cfelseif form.nomeutente neq nome>
-            <cfset errorlist = listAppend(errorlist, "nomeutente")>
-            <cflocation url="?p=login">
-        <cfelseif form.password neq psw>
-            <cfset errorlist = listAppend(errorlist, "password")>
-            <cflocation url="?p=login">
+            <cfset session.name = login.nome />
+            <cfset session.id = login.id/>
+            <cfdump  var="#session#">
+            <cflocation url="default.cfm">
         <cfelseif form.nomeutente neq email>
             <cfset errorlist = listAppend(errorlist, "emailutente")>
             <cflocation url="?p=login">
@@ -34,15 +30,7 @@
     <div class="form-login-container d-flex justify-content-center align-items-center mt-5 flex-column">
         <h3 class="mb-2">Accedi al sito</h3>
         <form method="post" class="form d-flex flex-column">
-            <input type="hidden">
-            <div class="form-outline">
-                <input type="text" id="nomeutente" class="input-filter mb-2" placeholder="nome utente" name="nomeutente" value=""/>
-            </div>
-            <cfif listFind(errorlist, "nomeutente")>    
-                <div class="text-danger">
-                  inserire un nome!
-                </div> 
-              </cfif>     
+            <input type="hidden" name="hidden">
             <div class="form-outline">
                 <input type="text" id="emailutente" class="input-filter mb-2" placeholder="E-mail" name="emailutente" value=""/>
             </div>
@@ -56,7 +44,7 @@
             </div>
             <cfif listFind(errorlist, "password")>    
                 <div class="text-danger">
-                  inserire una pasword!
+                  inserire una pasword corretta!
                 </div> 
             </cfif>     
                 <button class="btn btn-secondary" type="submit" value="submit">Login</button>

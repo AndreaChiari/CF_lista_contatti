@@ -81,9 +81,9 @@
                     </select>                      
                                  
                     <!--- tabella lista contatti --->  
-           <!---  <cfif isDefined(session.nome)>
-                <cfinclude  template="welcome.cfm">
-            </cfif> --->
+            
+          
+            
             <table class="table" cellspacing="0">
                 <thead>
                     <tr class="title-row">

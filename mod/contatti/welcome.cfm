@@ -1,3 +1,3 @@
 <cfoutput>
-    <h4>Benvenuto! #session.name# ora puoi vedere la lista contatti</h4>
+    <h3 class="ms-5 mt-3">Benvenuto #session.name#! ora puoi accedere alla la lista contatti</h3>
 </cfoutput>

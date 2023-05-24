@@ -13,16 +13,18 @@
 <body>
 
  <cfoutput>
-    <cfdump  var="#session#">
     <cfparam  name="url.p" default="">
 
     <cfinclude  template="menu.cfm">
     <main>
-        <cfif not isEmpty(url.p)>
-            <cfinclude  template="mod/#url.p#/default.cfm">
+        <cfif isdefined("session.name")>
+            <cfinclude  template="mod/contatti/welcome.cfm">
+            <cfif not isEmpty(url.p)>
+                <cfinclude  template="mod/#url.p#/default.cfm">
+            </cfif>
         </cfif>
     </main>
-    <cfinclude  template="footer.cfm">
+    <cfinclude template="footer.cfm">
 
 </cfoutput>
 </body>
