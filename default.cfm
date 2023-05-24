@@ -17,7 +17,7 @@
 
     <cfinclude  template="menu.cfm">
     <main>
-        <cfif isdefined("session.name") OR url.p is "login">
+        <cfif isdefined("session.name") OR url.p is "login" OR url.p is "signin">
             <cfif not isEmpty(url.p)>
                 <cfinclude  template="mod/#url.p#/default.cfm">
             <cfelse>
@@ -28,7 +28,6 @@
         </cfif>
     </main>
     <cfinclude template="footer.cfm">
-
 </cfoutput>
 </body>
     
