@@ -6,7 +6,6 @@
 
 
 <cfif isDefined("hidden")> 
-
         <cfquery name="login" datasource="andrea">
             SELECT * 
             FROM utenti   

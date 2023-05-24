@@ -20,11 +20,15 @@
         <cfif isdefined("session.name") OR url.p is "login" OR url.p is "signin">
             <cfif not isEmpty(url.p)>
                 <cfinclude  template="mod/#url.p#/default.cfm">
-            <cfelse>
-                <cfinclude  template="mod/contatti/loginsuccess.cfm">
             </cfif>
+        <cfelseif url.p eq "?p=contatti&xls"> 
+            <cfabort>
+        <cfelseif url.p eq "?p=contatti&xlsdoc"> 
+            <cfabort>
+        <cfelseif url.p eq "?p=contatti&pdf"> 
+            <cfabort>
         <cfelse>
-            <cfinclude  template="mod/welcome/default.cfm">
+            <cfinclude template="mod/welcome/default.cfm">
         </cfif>
     </main>
     <cfinclude template="footer.cfm">

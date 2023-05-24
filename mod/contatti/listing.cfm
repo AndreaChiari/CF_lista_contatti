@@ -125,9 +125,9 @@
                     <a href="?p=contatti&id=0" class="w220 btn btn-primary mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-solid fa-user-plus me-3"></i> Aggiungi Contatto</a>  
                 </div> 
                 <div class="d-flex">
-                    <a href="?p=form" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-sharp fa-solid fa-file-excel me-1"></i> cfspreadsheet </a>  
-                    <a href="tablefile.cfm" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-sharp fa-regular fa-file-excel me-1"></i> cfcontent </a>
-                    <a href="tabletopdf.cfm" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-regular fa-file-pdf me-1"></i> cfdocument </a>
+                    <a href="?p=contatti&xls" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-sharp fa-solid fa-file-excel me-1"></i> cfspreadsheet </a>  
+                    <a href="?p=contatti&xlsdoc" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-sharp fa-regular fa-file-excel me-1"></i> cfcontent </a>
+                    <a href="?p=contatti&pdf" class="btn btn-success mb-5 p-2 d-flex justify-items-center align-items-center ms-2 text-white"> <i class="fa-regular fa-file-pdf me-1"></i> cfdocument </a>
                 </div>  
             </div> 
         </div>          

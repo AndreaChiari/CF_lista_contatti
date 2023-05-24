@@ -27,10 +27,13 @@
               <a href="?p=login"><h5 class="text-white me-2">Login</h5></a>
             </div>
             <cfelse>
+              <cfoutput>
               <div class="d-flex justify-content-center align-items-center">
-                <form method="post"><button class="btn me-2 text-white" type="submit" value="logout" name="logout">Logout</button></form>
-                <img class="me-5 imglogo" src="mod/contatti/img/Logo-azienda.jpg">
+                  <h5 class="text-white">Benvenuto,#session.name#</h5>
+                  <form method="post"><button class="btn me-2 text-white fs-4" type="submit" value="logout" name="logout">Logout</button></form>
+                  <img class="me-5 imglogo" src="mod/contatti/img/Logo-azienda.jpg">
               </div>
+              </cfoutput>
           </cfif>
             <div>
                 <cfoutput>
