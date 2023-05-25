@@ -35,9 +35,8 @@
         FROM utenti
         WHERE UUID = "#url.uuid#"
     </cfquery>
-<cfdump  var="#getCurrentUI#">
 
-    <cfif getCurrentUI.recordCount GTE 1>
+    <cfif getCurrentUI.recordCount EQ 1>
         <div class="container-validazione d-flex justify-content-center align-items-center flex-column mt-5">
             <div class="border border-primary p-3">
                 <p class="text-validation">Inserisci una nuova password</p>

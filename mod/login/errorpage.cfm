@@ -1,1 +1,1 @@
-<h1 class="text-center text-danger">Resource not found!</h1>
+<h1 class="text-center text-danger mt-5">Resource not found!</h1>

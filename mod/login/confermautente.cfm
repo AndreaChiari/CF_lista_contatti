@@ -15,15 +15,17 @@
         SET UUID = <cfqueryparam value = "#uniqueID#"> 
     </cfquery>
 
-<cfscript>
-    cfmail(
-            from="andrea.chiari@womweb.it",
-            subject="password reset",
-            to="#uservalidation.email#"
-        ) 
-       { WriteOutput( " Ecco il link di registrazione per resettare la tua password: http://andrea.womtest.it/CF_lista_contatti/default.cfm?p=login&resetpsw&UUID=#uniqueID#" );}
 
-</cfscript>
+    <cfmail
+            from="andrea.chiari@womweb.it"
+            subject="password reset"
+            to="#uservalidation.email#"
+            type="html">
+            <p>Ecco il link di registrazione per resettare la tua password: <a href="http://andrea.womtest.it/CF_lista_contatti/default.cfm?p=login&resetpsw&UUID=#uniqueID#">Password reset</a></p>
+
+    </cfmail>
+
+
    <cfinclude  template="emailsuccess.cfm">
 <cfelse>
     <cfset errorlist = listAppend(errorlist, "wrongname")>
