@@ -13,7 +13,7 @@
     </cfquery>
 
     <cfmail  from="andrea.chiari@womweb.it"  subject="subject"  to="chiariandrea94@gmail.com">
-        Ecco il link di registrazione per resettare la tua password: http://andrea.womtest.it/CF_lista_contatti/default.cfm?p=login&resetpsw
+        Ecco il link di registrazione per resettare la tua password: http://andrea.womtest.it/CF_lista_contatti/default.cfm?p=login&resetpsw#uniqueID#
     </cfmail>
 </cfif>
 </cfif>
