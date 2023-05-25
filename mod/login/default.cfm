@@ -1,6 +1,7 @@
 
 <cfset errorlist = "">
 
+
 <!--- validazione --->
 <cfif isDefined("url.confermautente")>
     <cfinclude  template="confermautente.cfm">

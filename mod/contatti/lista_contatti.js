@@ -11,6 +11,22 @@ function downloadExcel(){
    linktoxls.click()
 }
 
+/* const containerValidazione = document.getElementById("container-validazione");
+const successmail = document.getElementById("successmail");
+const successname = document.getElementById("successname");
+
+
+   
+   successname.addEventListener("click",function(){
+      containerValidazione.classList.add("d-none");
+      successmail.classList.add("d-block");
+   });
+ */
+
+
+
+
+
 /* const redirect = document.getElementById("redirect");
 
 function redirectHome(){

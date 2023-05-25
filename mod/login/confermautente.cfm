@@ -1,7 +1,8 @@
+
 <cfset errorlist = "">
 
 <cfif isDefined("uservalidate")>
-    <cfset uniqueId = createUUID()>
+    <cfset uniqueID = createUUID()>
     <cfquery name="uservalidation" datasource="andrea">
         SELECT * 
         FROM utenti   
@@ -14,26 +15,34 @@
         SET UUID = <cfqueryparam value = "#uniqueID#"> 
     </cfquery>
 
-<cfmail  from="andrea.chiari@womweb.it"  subject="subject"  to="chiariandrea94@gmail.com">
-    Ecco il link di registrazione per resettare la tua password: http://andrea.womtest.it/CF_lista_contatti/default.cfm?p=login&resetpsw#uniqueID#
-</cfmail>
+<cfscript>
+    cfmail(
+            from="andrea.chiari@womweb.it",
+            subject="password reset",
+            to="#uservalidation.email#"
+        ) 
+       { WriteOutput( " Ecco il link di registrazione per resettare la tua password: http://andrea.womtest.it/CF_lista_contatti/default.cfm?p=login&resetpsw&UUID=#uniqueID#" );}
+
+</cfscript>
+   <cfinclude  template="emailsuccess.cfm">
 <cfelse>
     <cfset errorlist = listAppend(errorlist, "wrongname")>
 </cfif>
 </cfif>
 
-<div class="container-validazione d-flex justify-content-center align-items-center flex-column mt-5">
-    <div class="border border-primary p-3">
+<div id="container-validazione" class="container-validazione d-flex justify-content-center align-items-center flex-column mt-5">
+    <div class="border border-primary p-3 mb-3">
         <p class="text-validation">Inserisci il nome utente, collegato al tuo account</p>
         <form method="post" id="uservalidationform">
             <label for="validationTooltip01">Nome Utente</label>
-            <input type="text" class="form-control" id="uservalidate" placeholder="" name="uservalidate" value= "" required>
+            <input type="text" class="form-control" id="uservalidate" name="uservalidate" value="" required>
             <cfif listFind(errorlist, "wrongname")>    
                 <div class="text-danger">
                   inserisci un nome utente valido!
                 </div> 
             </cfif>       
-            <button class="btn btn-primary mt-3">Invia</button>
+            <button id="successname" class="btn btn-primary mt-3">Invia</button>
         </form> 
-    </div>
+    </div>  
 </div>
+
