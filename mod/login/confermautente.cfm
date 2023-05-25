@@ -1,3 +1,5 @@
+<cfset errorlist = "">
+
 <cfif isDefined("uservalidate")>
     <cfset uniqueId = createUUID()>
     <cfquery name="uservalidation" datasource="andrea">
@@ -12,9 +14,11 @@
         SET UUID = <cfqueryparam value = "#uniqueID#"> 
     </cfquery>
 
-    <cfmail  from="andrea.chiari@womweb.it"  subject="subject"  to="chiariandrea94@gmail.com">
-        Ecco il link di registrazione per resettare la tua password: http://andrea.womtest.it/CF_lista_contatti/default.cfm?p=login&resetpsw#uniqueID#
-    </cfmail>
+<cfmail  from="andrea.chiari@womweb.it"  subject="subject"  to="chiariandrea94@gmail.com">
+    Ecco il link di registrazione per resettare la tua password: http://andrea.womtest.it/CF_lista_contatti/default.cfm?p=login&resetpsw#uniqueID#
+</cfmail>
+<cfelse>
+    <cfset errorlist = listAppend(errorlist, "wrongname")>
 </cfif>
 </cfif>
 
@@ -23,7 +27,12 @@
         <p class="text-validation">Inserisci il nome utente, collegato al tuo account</p>
         <form method="post" id="uservalidationform">
             <label for="validationTooltip01">Nome Utente</label>
-            <input type="text" class="form-control" id="uservalidate" placeholder="" name="uservalidate" value= "" required> 
+            <input type="text" class="form-control" id="uservalidate" placeholder="" name="uservalidate" value= "" required>
+            <cfif listFind(errorlist, "wrongname")>    
+                <div class="text-danger">
+                  inserisci un nome utente valido!
+                </div> 
+            </cfif>       
             <button class="btn btn-primary mt-3">Invia</button>
         </form> 
     </div>
