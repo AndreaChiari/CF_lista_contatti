@@ -22,7 +22,6 @@
             to="#uservalidation.email#"
             type="html">
             <p>Ecco il link di registrazione per resettare la tua password: <a href="http://andrea.womtest.it/CF_lista_contatti/default.cfm?p=login&resetpsw&UUID=#uniqueID#">Password reset</a></p>
-
     </cfmail>
 
 

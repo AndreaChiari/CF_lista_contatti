@@ -1,6 +1,14 @@
 <cfinclude  template="querycontatti.cfm">
-<cfheader name="Content-Disposition" value="inline; filename=table.pdf">
-
+<cfmail  from="andrea.chiari@womweb.it"
+         subject="pdf"  
+         to="chiariandrea94@gmail.com"
+         type="html"
+         mimeattach="\\staging-01\andrea\CF_lista_contatti\mod\contatti\table.pdf">
+         <img src="http://andrea.womtest.it/CF_lista_contatti/mod/contatti/logowom.png">
+         <p>Ecco il pdf della lista contatti, potrai trovarlo in allegato.</p>
+</cfmail>
+<cfheader name="Content-Disposition" value="attachment; filename=table.pdf">
+<cfcontent type="application/pdf">
     <cfdocument format="PDF" marginbottom="0" margintop="1" marginleft="0.5" marginright="0.5" pagetype="a4"> 
         <cfoutput>
             <cfdocumentitem  type="header">
@@ -39,3 +47,4 @@
             </cfdocumentsection>  
         </cfoutput>
     </cfdocument>
+    <cfpdf  action="merge" order="name" destination="\\staging-01\andrea\CF_lista_contatti\mod\contatti\table.pdf">

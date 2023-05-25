@@ -86,7 +86,7 @@
             
             <table class="table" cellspacing="0">
                 <thead>
-                    <tr class="title-row">
+                    <tr class="title-row"> 
                         <th data-title="Img">Immagine</th>
                         <th data-title="Cognome">Cognome</th>
                         <th data-title="Nome">Nome</th>
