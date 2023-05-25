@@ -1,3 +1,5 @@
+<cfset errorlist = "">
+
 <cfif isDefined("hidden")> 
     <cfquery name="login" datasource="andrea">
         SELECT * 
@@ -12,7 +14,7 @@
             <cfset session.id = login.id/>
             <cfdump  var="#session#">
             <cflocation url="default.cfm" addToken="no">
-        <cfelse>
+    <cfelse>
             <cfset errorlist = listAppend(errorlist, "emailutente")>
             <cfset errorlist = listAppend(errorlist, "password")>
     </cfif>
