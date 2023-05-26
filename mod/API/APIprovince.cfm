@@ -12,7 +12,7 @@
     <cfloop query="getProvince">
         <cfset province[currentRow] = structNew()>
         <cfset province[currentRow].id = getProvince.id>
-        <cfset province[currentRow].name = getProvince.nome>
+        <cfset province[currentRow].text = getProvince.nome>
         <cfset province[currentRow].sigla = getProvince.sigla>
     </cfloop>
 </cfoutput>
