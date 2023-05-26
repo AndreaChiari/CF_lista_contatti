@@ -8,7 +8,7 @@
 
 
 <cfoutput query="getProvince">
-    <cfset province = Arraynew(1)>
+    <cfset province = Arraynew()>
     <cfloop query="getProvince">
         <cfset province[currentRow] = structNew()>
         <cfset province[currentRow].id = getProvince.id>
