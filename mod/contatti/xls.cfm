@@ -1,4 +1,3 @@
-<!--- <script defer src="lista_contatti.js"></script> --->
 <cfinclude  template="querycontatti.cfm">
 
 <cfheader name="Content-Disposition" value="inline; filename=table.xls">

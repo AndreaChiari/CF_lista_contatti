@@ -11,6 +11,13 @@ function downloadExcel(){
    linktoxls.click()
 }
 
+   $("selectProvince").select2({
+      ajax: {
+      url: "http://andrea.womtest.it/CF_lista_contatti/mod/API/APIprovince.cfm",
+      dataType: 'json',
+      }
+ });
+
 /* const containerValidazione = document.getElementById("container-validazione");
 const successmail = document.getElementById("successmail");
 const successname = document.getElementById("successname");

@@ -25,7 +25,7 @@
             <cfcookie  name="Filtro" value="#form.filtro#">
      <!---        <cfcookie  name="Province" value="#form.province#"> --->
         </cfif>
-        <cfdump var="#cookie#">
+      
                       
         <!--- query principale importata --->
         <cfinclude  template="querycontatti.cfm">
@@ -34,20 +34,21 @@
         <cfset records = 4>
         <cfset startrow = (cookie.pagenumber-1) * records + 1>
         <cfset totalpages = ceiling((queryRecordCount(filtrocontatti) / records))>
-        <cfdump  var=#startrow#>
- 
 
       <!--- filtro ricerca contatti --->
-            
+
         <div class="container listing-container">
             <h1 class="text-center text-primary mt-4 mb-5 mx-auto">LISTA CONTATTI</h1>             
                  <form action="" method="post" id="filterform">
                     <input type="hidden" name="hidden">
                     <div class="input-group justify-content-end mb-4">
 
+                        <!--- filtro province --->
+                        <select class="selectProvince"></select>
+                        
                         <!--- filtro sesso --->
-                        <label for="genere" id="genere">Sesso:</label>
-                        <select name="genere" id="genere" class="me-3 ms-1">
+                        <label class="ms-2" for="genere" id="genere">Sesso:</label>
+                        <select name="genere" id="genere" class="me-3 ms-1 h35">
                             <option name="genere" value="" id="option"<cfif cookie.genere EQ ""> selected </cfif>> Tutti</option>
                             <option name="genere" value="M" id="option"<cfif cookie.genere EQ "M"> selected </cfif> >M</option>                      
                             <option name="genere" value="F" id="option"<cfif cookie.genere EQ "F"> selected </cfif> >F</option>           
@@ -58,15 +59,7 @@
                             <input type="search" id="form1" class="input-filter" placeholder="cerca" name="filtro" value="#cookie.filtro#"/>
                         </div>
 
-                        <!--- filtro province --->
-                     <!---    <label for="filtroprovince" id="filtroprovince">Sesso:</label>
-                        <div class="mt-3">
-                            <select name="province" id="provincefiltroselect" class="me-3 ms-1 mb-3"> 
-                                <option name="provincia" value="" id="option" <cfif province eq ""> selected </cfif>> --- </option>
-                              <cfloop query="filtroContatti">
-                                <option name="provincia" value="#idprovincia#" id="option" <cfif province eq idprovincia> selected </cfif>> #nomeprovincia# </option>
-                              </cfloop>             
-                            </select> --->
+
                         <button name="submitFilter" type="submit" value="submit" class="btnfilter d-flex justify-content-center align-items-center">
                             <i class="fas fa-search"></i>
                         </button>
